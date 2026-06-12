@@ -1,0 +1,5 @@
+mountpoints:
+  /:
+    url: "https://author-p7752-e729659.adobeaemcloud.com/bin/franklin.delivery/adobe-rnd/aem-block-collection-xwalk/main"
+    type: "markup"
+    suffix: ".html"
