@@ -3,9 +3,10 @@
 // only reads that DOM and wires structure + behavior; it hardcodes no copy.
 //
 // Robustness: works both in local `aem up` preview (raw fragment: section div > ul)
-// and in AEM (which can wrap section content in .section / .default-content-wrapper
-// divs). We normalize the fetched DOM and tag elements with explicit classes so the
-// CSS never depends on a fragile direct-child relationship.
+// and in AEM (which wraps each authored group in a .section / .default-content-wrapper).
+// We keep .section (the grouping) but flatten .default-content-wrapper, identify groups
+// by content signature (not position), and rely on CSS to hide submenus structurally so
+// a fixed-position header can never expand to full height and cover the page.
 
 import { getMetadata } from '../../scripts/aem.js';
 
@@ -28,8 +29,8 @@ async function fetchNav() {
   const tmp = document.createElement('div');
   tmp.innerHTML = html;
 
-  // Resolve relative image paths (e.g. images/logo.svg) against the fragment's
-  // location so the logo/icons load regardless of the current page URL.
+  // Resolve relative image paths (logo/icons) against the fragment's location so
+  // they load regardless of the current page URL.
   tmp.querySelectorAll('img[src]').forEach((img) => {
     const src = img.getAttribute('src');
     if (src && !/^(https?:)?\/\//.test(src) && !src.startsWith('data:')) {
@@ -40,15 +41,9 @@ async function fetchNav() {
 }
 
 /**
- * Normalize the fetched fragment so the three authored groups (brand, primary
- * nav, tools) are the top-level children — in BOTH environments:
- *   - local `aem up`: groups are plain <div>s separated by `---` -> already direct children.
- *   - AEM: each `---` becomes a <div class="section">, and that section's content is
- *     nested under <div class="default-content-wrapper">. We must KEEP .section (it is
- *     our grouping) but flatten the inner .default-content-wrapper so each group's
- *     <ul>/<p> becomes a direct child of the group.
- * Removing .section here (as an earlier version did) flattens all three groups into one,
- * which is why the AEM nav rendered as a single un-grouped, un-collapsed bullet list.
+ * Keep .section (AEM's per-group wrapper = our brand/nav/tools grouping) but flatten
+ * the inner .default-content-wrapper so each group's ul/p is a direct child. In local
+ * preview there are no such wrappers, so this is a no-op there.
  */
 function unwrap(el) {
   el.querySelectorAll('.default-content-wrapper').forEach((w) => {
@@ -128,11 +123,11 @@ export default async function decorate(block) {
   }
 
   // Identify the three groups by CONTENT SIGNATURE, not by position. AEM and the
-  // local `aem up` pipeline can differ in child count/order, and positional
-  // tagging mis-assigned the groups in AEM (nav group left untagged -> rendered
-  // as a raw, full-height list that covered the hero). Signatures are unambiguous:
+  // local `aem up` pipeline can differ in child count/order, and positional tagging
+  // mis-assigned the groups in AEM (nav group left untagged -> rendered as a raw,
+  // full-height list that covered the hero). Signatures are unambiguous:
   //   primary nav (sections) = the group whose list has NESTED sub-lists (megamenu)
-  //   brand                  = the group that contains an <img> (logo)
+  //   brand                  = a group that contains an <img> (logo) and no list
   //   tools                  = the remaining group (search + locale)
   const topSections = Array.from(nav.children).filter((c) => c.tagName === 'DIV');
   let brand;
@@ -145,7 +140,6 @@ export default async function decorate(block) {
       brand = sec;
     }
   });
-  // Whatever is left (not nav, not brand) is tools.
   topSections.forEach((sec) => {
     if (sec !== sections && sec !== brand && !tools) tools = sec;
   });
@@ -158,8 +152,7 @@ export default async function decorate(block) {
   if (sections) sections.classList.add('nav-sections');
   if (tools) tools.classList.add('nav-tools');
 
-  // Tag the primary nav list explicitly so CSS does not depend on direct-child
-  // structure (AEM may wrap it in .default-content-wrapper).
+  // Tag the primary nav list explicitly so CSS does not depend on direct-child structure.
   if (sections) {
     const primaryList = sections.querySelector('ul');
     if (primaryList) primaryList.classList.add('nav-primary-list');

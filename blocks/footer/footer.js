@@ -3,9 +3,9 @@
 // and tags sections for styling. No hardcoded copy.
 //
 // Robustness: works in local `aem up` preview (raw fragment) and in AEM (which
-// can wrap section content in .section / .default-content-wrapper divs). We
-// unwrap those, tag lists by explicit class, and absolutize image paths so the
-// layout never depends on a fragile direct-child relationship.
+// wraps each authored group in .section / .default-content-wrapper). Keep
+// .section (the grouping), flatten .default-content-wrapper, absolutize image
+// paths, and let CSS hold the layout via classes (no fragile child chains).
 
 import { getMetadata } from '../../scripts/aem.js';
 
@@ -33,10 +33,8 @@ async function fetchFooter() {
   return tmp;
 }
 
-// Normalize the fragment so each authored group is a top-level child in BOTH
-// environments. KEEP .section (AEM's per-`---` grouping = our 4 footer sections);
-// only flatten the inner .default-content-wrapper. Removing .section would merge
-// all four groups into one (the AEM "unstyled list" failure mode).
+// Keep .section (AEM's per-`---` grouping = our 4 footer sections); only flatten
+// the inner .default-content-wrapper. Removing .section would merge all groups.
 function unwrap(el) {
   el.querySelectorAll('.default-content-wrapper').forEach((w) => {
     w.replaceWith(...w.childNodes);
