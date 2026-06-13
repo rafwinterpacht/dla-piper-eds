@@ -80,12 +80,18 @@ header nav .nav-primary-list > li[aria-expanded='true'] > a {
 }
 
 /* ---------- Megamenu panels (desktop) ---------- */
+
+/* Hide submenus structurally (any nested list under the primary nav) so the
+   header never expands to full height even if JS hasn't tagged .nav-submenu yet
+   or AEM restructured the markup. The class selector is kept for specificity. */
+header nav .nav-sections ul ul,
 header nav .nav-primary-list .nav-submenu {
   display: none;
 }
 
 @media (width >= 900px) {
-  header nav .nav-primary-list > li.nav-drop[aria-expanded='true'] > .nav-submenu {
+  header nav .nav-primary-list > li.nav-drop[aria-expanded='true'] > .nav-submenu,
+  header nav .nav-sections > ul > li[aria-expanded='true'] > ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 16px 32px;
@@ -343,12 +349,14 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
     font-weight: 600;
   }
 
+  header nav .nav-sections ul ul,
   header nav .nav-primary-list .nav-submenu {
     display: none;
     padding: 0 0 12px 16px;
   }
 
-  header nav .nav-primary-list > li.nav-drop[aria-expanded='true'] > .nav-submenu {
+  header nav .nav-primary-list > li.nav-drop[aria-expanded='true'] > .nav-submenu,
+  header nav .nav-sections > ul > li[aria-expanded='true'] > ul {
     display: block;
   }
 

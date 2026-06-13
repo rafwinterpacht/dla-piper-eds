@@ -33,9 +33,12 @@ async function fetchFooter() {
   return tmp;
 }
 
-// Flatten AEM section wrappers so each section's content (ul / p) is a direct child.
+// Normalize the fragment so each authored group is a top-level child in BOTH
+// environments. KEEP .section (AEM's per-`---` grouping = our 4 footer sections);
+// only flatten the inner .default-content-wrapper. Removing .section would merge
+// all four groups into one (the AEM "unstyled list" failure mode).
 function unwrap(el) {
-  el.querySelectorAll('.section, .default-content-wrapper').forEach((w) => {
+  el.querySelectorAll('.default-content-wrapper').forEach((w) => {
     w.replaceWith(...w.childNodes);
   });
 }
