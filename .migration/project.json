@@ -3,5 +3,6 @@
   "previewSite": "dla-piper-eds",
   "type": "xwalk",
   "contentHostUrl": "author-p7752-e729659.adobeaemcloud.com",
-  "libraryUrl": "https://main--sta-xwalk-boilerplate--aemysites.aem.page/tools/sidekick/library.json"
+  "libraryUrl": "https://main--sta-xwalk-boilerplate--aemysites.aem.page/tools/sidekick/library.json",
+  "baseUrl": "https://dlapiper.com"
 }
