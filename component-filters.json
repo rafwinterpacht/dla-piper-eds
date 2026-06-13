@@ -34,6 +34,12 @@
     ]
   },
   {
+    "id": "cards-insights",
+    "components": [
+      "card-insights"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
@@ -43,6 +49,21 @@
     "id": "carousel",
     "components": [
       "carousel-item"
+    ]
+  },
+  {
+    "id": "columns-contact",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
     ]
   },
   {

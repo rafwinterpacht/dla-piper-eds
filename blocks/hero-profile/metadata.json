@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-profile",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-06-13T15:45:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/people/r/ryan-frank-w",
+    "originPage": "attorney person-profile page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "profile-hero",
+    "imagePattern": "portrait"
+  },
+  "contentPattern": {
+    "structure": "portrait image + name heading + role + functional title + positioning statement",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "person profile / attorney bio headers",
+      "team member detail pages",
+      "any profile header pairing a portrait with an identity block on a navy band"
+    ],
+    "notSuitableFor": [
+      "marketing landing-page heroes with overlaid title on a full-bleed photo (use hero-banner)",
+      "heroes requiring a call-to-action button over a background image"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/people/r/ryan-frank-w"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T15:45:00.000Z"
+  }
+}

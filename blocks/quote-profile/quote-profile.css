@@ -1,0 +1,63 @@
+/*
+ * quote-profile - navy pull-quote panel for person profiles.
+ * Design tokens from dlapiper.com: navy panel rgb(0,34,64), white serif
+ * quotation, white Noto Sans attribution. Derived from the about-us
+ * quote-portrait extract (navy .text-box.blue + serif .quote).
+ */
+.quote-profile {
+  background-color: rgb(0 34 64); /* brand navy */
+  color: rgb(255 255 255);
+}
+
+.quote-profile blockquote {
+  margin: 0 auto;
+  padding: 38px 24px;
+  max-width: 900px;
+}
+
+.quote-profile blockquote .quote-profile-quotation {
+  font-family: "Noto Serif", Georgia, serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 36px;
+  color: rgb(255 255 255);
+}
+
+.quote-profile blockquote .quote-profile-quotation > :first-child {
+  text-indent: -0.5ch;
+}
+
+.quote-profile blockquote .quote-profile-quotation p:first-child::before {
+  content: '“';
+  line-height: 0;
+}
+
+.quote-profile blockquote .quote-profile-quotation p:last-child::after {
+  content: '”';
+  line-height: 0;
+}
+
+.quote-profile blockquote .quote-profile-attribution {
+  font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgb(255 255 255);
+  margin-top: 16px;
+}
+
+.quote-profile blockquote .quote-profile-attribution p:first-child::before {
+  content: '—';
+  padding-right: 0.5ch;
+}
+
+.quote-profile blockquote .quote-profile-attribution a {
+  color: rgb(255 255 255);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .quote-profile blockquote {
+    padding: 38px 32px;
+  }
+}

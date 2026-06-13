@@ -1,0 +1,69 @@
+/*
+ * cards-insights - news / article cards for the "My latest insights" row
+ * on dlapiper.com person profiles. Each card: image on top, then a category
+ * tag, a serif headline, and a date. Cards are typically wrapped in a link.
+ * Design tokens: navy text rgb(0,34,64), Noto Serif headlines, Noto Sans body.
+ */
+.cards-insights > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.cards-insights > ul > li {
+  border: none;
+  background-color: var(--background-color, rgb(255 255 255));
+}
+
+.cards-insights .cards-insights-card-image {
+  line-height: 0;
+}
+
+.cards-insights > ul > li img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.cards-insights .cards-insights-card-body {
+  margin: 16px 0 0;
+  font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+/* Category tag (first short line, e.g. "News") */
+.cards-insights .cards-insights-card-body :first-child {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(115 118 39); /* brand link/olive accent */
+  margin: 0 0 8px;
+}
+
+/* Headline */
+.cards-insights .cards-insights-card-body h2,
+.cards-insights .cards-insights-card-body h3 {
+  font-family: "Noto Serif", Georgia, serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: rgb(0 34 64);
+  margin: 0 0 8px;
+}
+
+/* Date / meta (last line) */
+.cards-insights .cards-insights-card-body :last-child {
+  font-size: 14px;
+  color: rgb(0 34 64);
+  margin: 0;
+}
+
+.cards-insights a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

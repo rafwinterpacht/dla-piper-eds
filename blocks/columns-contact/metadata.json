@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-contact",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-13T15:48:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/people/r/ryan-frank-w",
+    "originPage": "attorney person-profile page - 'Connect' section",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "wide",
+    "purpose": "contact-panel",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "email column + phone column + location column + social column (heading + links/address per column)",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "profile 'Connect' contact panels",
+      "multi-field contact layouts (email / phone / location / social)",
+      "side-by-side informational columns of links and short text"
+    ],
+    "notSuitableFor": [
+      "media + text layouts with embedded video (use a columns-media variant)",
+      "repeating self-contained items (use cards)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/people/r/ryan-frank-w"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T15:48:00.000Z"
+  }
+}

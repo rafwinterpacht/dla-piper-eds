@@ -1,0 +1,84 @@
+/*
+ * hero-profile - navy person-profile header.
+ * Design tokens from dlapiper.com: navy rgb(0,34,64), white text,
+ * Noto Serif headings, Noto Sans body.
+ */
+.hero-profile-container .hero-profile-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-profile {
+  position: relative;
+  background-color: rgb(0 34 64); /* brand navy */
+  color: rgb(255 255 255);
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Portrait column */
+.hero-profile .hero-profile-image {
+  flex: 0 0 auto;
+}
+
+.hero-profile .hero-profile-image img,
+.hero-profile .hero-profile-image picture {
+  width: 220px;
+  height: 220px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+
+/* Identity column */
+.hero-profile .hero-profile-content {
+  flex: 1 1 auto;
+}
+
+.hero-profile .hero-profile-content h1 {
+  font-family: "Noto Serif", Georgia, serif;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 48px;
+  color: rgb(255 255 255);
+  margin: 0 0 8px;
+}
+
+.hero-profile .hero-profile-content p {
+  font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  color: rgb(255 255 255);
+  margin: 4px 0;
+}
+
+/* The short positioning statement (last paragraph) reads larger/serif. */
+.hero-profile .hero-profile-content p:last-child {
+  font-family: "Noto Serif", Georgia, serif;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+@media (width >= 900px) {
+  .hero-profile {
+    flex-direction: row;
+    gap: 48px;
+    padding: 56px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .hero-profile .hero-profile-image img,
+  .hero-profile .hero-profile-image picture {
+    width: 280px;
+    height: 280px;
+  }
+
+  .hero-profile .hero-profile-content h1 {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
