@@ -40,6 +40,12 @@
     ]
   },
   {
+    "id": "cards-promo",
+    "components": [
+      "card-promo"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
@@ -53,6 +59,21 @@
   },
   {
     "id": "columns-contact",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "columns-cta",
     "components": [
       "column"
     ]

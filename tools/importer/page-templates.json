@@ -34,7 +34,25 @@
         "https://www.dlapiper.com/en-us"
       ],
       "description": "DLA Piper homepage with hero, featured insights/news, capabilities, and promotional sections",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [".hero-card-container"]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [".hero-card-row"]
+        },
+        {
+          "name": "cards-insights",
+          "instances": [".tertiary-content-component"]
+        },
+        {
+          "name": "columns-cta",
+          "instances": [".feature-cta-component"],
+          "section": "accent-olive"
+        }
+      ]
     }
   ]
 }

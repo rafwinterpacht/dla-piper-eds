@@ -1,248 +1,156 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { fetchPlaceholders } from '../../scripts/placeholders.js';
-import { loadFragment } from '../fragment/fragment.js';
+// DLA Piper header: click-triggered megamenu panels (desktop) + full-screen drawer (mobile).
+// Content-first: all labels/links/images come from content/nav.plain.html. This file
+// only reads that DOM and wires structure + behavior; it hardcodes no copy.
 
-// media query match that indicates mobile/tablet width
+import { getMetadata } from '../../scripts/aem.js';
+
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
-function closeOnEscape(e) {
-  if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections);
-      navSectionExpanded.focus();
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections);
-      nav.querySelector('button').focus();
-    }
-  }
-}
-
-function closeOnFocusLost(e) {
-  const nav = e.currentTarget;
-  if (!nav.contains(e.relatedTarget)) {
-    const navSections = nav.querySelector('.nav-sections');
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections, false);
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections, false);
-    }
-  }
-}
-
-function openOnKeydown(e) {
-  const focused = document.activeElement;
-  const isNavDrop = focused.className === 'nav-drop';
-  if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
-    const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    // eslint-disable-next-line no-use-before-define
-    toggleAllNavSections(focused.closest('.nav-sections'));
-    focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
-  }
-}
-
-function focusNavSection() {
-  document.activeElement.addEventListener('keydown', openOnKeydown);
-}
-
 /**
- * Toggles all nav sections
- * @param {Element} sections The container element
- * @param {Boolean} expanded Whether the element should be expanded or collapsed
+ * Fetch the nav fragment. Dual-fetch: local preview first, then DA/EDS production.
  */
-function toggleAllNavSections(sections, expanded = false) {
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
+async function fetchNav() {
+  let resp = await fetch('/content/nav.plain.html');
+  if (!resp.ok) {
+    const navMeta = getMetadata('nav');
+    const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+    resp = await fetch(`${navPath}.plain.html`);
+  }
+  if (!resp.ok) return null;
+  const html = await resp.text();
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp;
+}
+
+function closeAllPanels(nav) {
+  nav.querySelectorAll('.nav-drop[aria-expanded="true"]').forEach((li) => {
+    li.setAttribute('aria-expanded', 'false');
   });
 }
 
-/**
- * Toggles the entire nav
- * @param {Element} nav The container element
- * @param {Element} navSections The nav sections within the container element
- * @param {*} forceExpanded Optional param to force nav expand behavior when not null
- */
-function toggleMenu(nav, navSections, forceExpanded = null) {
-  const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
+function decorateDesktopBehavior(nav) {
+  const topItems = nav.querySelectorAll('.nav-sections > ul > li');
+  topItems.forEach((li) => {
+    const submenu = li.querySelector(':scope > ul');
+    const trigger = li.querySelector(':scope > a');
+    if (!submenu || !trigger) return;
+    li.classList.add('nav-drop');
+    li.setAttribute('aria-expanded', 'false');
+    // Click on the top-level label toggles its panel (source uses click, not hover).
+    trigger.addEventListener('click', (e) => {
+      if (!isDesktop.matches) return; // mobile handled separately
+      e.preventDefault();
+      const open = li.getAttribute('aria-expanded') === 'true';
+      closeAllPanels(nav);
+      li.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+
+  // Close panels on outside click / Escape.
+  document.addEventListener('click', (e) => {
+    if (isDesktop.matches && !nav.contains(e.target)) closeAllPanels(nav);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Escape') closeAllPanels(nav);
+  });
+}
+
+function toggleMobileMenu(nav, forceClose) {
+  const expanded = nav.getAttribute('aria-expanded') === 'true';
+  const open = forceClose ? false : !expanded;
+  nav.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.body.style.overflowY = (open && !isDesktop.matches) ? 'hidden' : '';
   const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // enable nav dropdown keyboard accessibility
-  const navDrops = navSections.querySelectorAll('.nav-drop');
-  if (isDesktop.matches) {
-    navDrops.forEach((drop) => {
-      if (!drop.hasAttribute('tabindex')) {
-        drop.setAttribute('tabindex', 0);
-        drop.addEventListener('focus', focusNavSection);
-      }
+  if (button) button.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+}
+
+function decorateMobileAccordion(nav) {
+  // On mobile, tapping a top-level label expands its sub-list in place (accordion).
+  nav.querySelectorAll('.nav-sections > ul > li.nav-drop > a').forEach((trigger) => {
+    trigger.addEventListener('click', (e) => {
+      if (isDesktop.matches) return;
+      const li = trigger.closest('li');
+      const submenu = li.querySelector(':scope > ul');
+      if (!submenu) return;
+      e.preventDefault();
+      const open = li.getAttribute('aria-expanded') === 'true';
+      li.setAttribute('aria-expanded', open ? 'false' : 'true');
     });
-  } else {
-    navDrops.forEach((drop) => {
-      drop.removeAttribute('tabindex');
-      drop.removeEventListener('focus', focusNavSection);
-    });
-  }
-
-  // enable menu collapse on escape keypress
-  if (!expanded || isDesktop.matches) {
-    // collapse menu on escape press
-    window.addEventListener('keydown', closeOnEscape);
-    // collapse menu on focus lost
-    nav.addEventListener('focusout', closeOnFocusLost);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-    nav.removeEventListener('focusout', closeOnFocusLost);
-  }
+  });
 }
 
-function getDirectTextContent(menuItem) {
-  const menuLink = menuItem.querySelector(':scope > :where(a,p)');
-  if (menuLink) {
-    return menuLink.textContent.trim();
-  }
-  return Array.from(menuItem.childNodes)
-    .filter((n) => n.nodeType === Node.TEXT_NODE)
-    .map((n) => n.textContent)
-    .join(' ');
-}
-
-async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
-  const crumbs = [];
-
-  const homeUrl = document.querySelector('.nav-brand a[href]').href;
-
-  let menuItem = Array.from(nav.querySelectorAll('a')).find((a) => a.href === currentUrl);
-  if (menuItem) {
-    do {
-      const link = menuItem.querySelector(':scope > a');
-      crumbs.unshift({ title: getDirectTextContent(menuItem), url: link ? link.href : null });
-      menuItem = menuItem.closest('ul')?.closest('li');
-    } while (menuItem);
-  } else if (currentUrl !== homeUrl) {
-    crumbs.unshift({ title: getMetadata('og:title'), url: currentUrl });
-  }
-
-  const placeholders = await fetchPlaceholders();
-  const homePlaceholder = placeholders.breadcrumbsHomeLabel || 'Home';
-
-  crumbs.unshift({ title: homePlaceholder, url: homeUrl });
-
-  // last link is current page and should not be linked
-  if (crumbs.length > 1) {
-    crumbs[crumbs.length - 1].url = null;
-  }
-  crumbs[crumbs.length - 1]['aria-current'] = 'page';
-  return crumbs;
-}
-
-async function buildBreadcrumbs() {
-  const breadcrumbs = document.createElement('nav');
-  breadcrumbs.className = 'breadcrumbs';
-
-  const crumbs = await buildBreadcrumbsFromNavTree(document.querySelector('.nav-sections'), document.location.href);
-
-  const ol = document.createElement('ol');
-  ol.append(...crumbs.map((item) => {
-    const li = document.createElement('li');
-    if (item['aria-current']) li.setAttribute('aria-current', item['aria-current']);
-    if (item.url) {
-      const a = document.createElement('a');
-      a.href = item.url;
-      a.textContent = item.title;
-      li.append(a);
-    } else {
-      li.textContent = item.title;
-    }
-    return li;
-  }));
-
-  breadcrumbs.append(ol);
-  return breadcrumbs;
-}
-
-/**
- * loads and decorates the header, mainly the nav
- * @param {Element} block The header block element
- */
 export default async function decorate(block) {
-  // load nav as fragment
-  const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
-
-  // decorate nav DOM
+  const fragment = await fetchNav();
   block.textContent = '';
+
   const nav = document.createElement('nav');
   nav.id = 'nav';
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  nav.setAttribute('aria-expanded', 'false');
 
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
+  if (fragment) {
+    while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  }
+
+  // Tag the three top-level sections: brand, sections (primary nav), tools (search + locale).
+  const sectionClasses = ['nav-brand', 'nav-sections', 'nav-tools'];
+  sectionClasses.forEach((cls, i) => {
+    if (nav.children[i]) nav.children[i].classList.add(cls);
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
-  }
-
-  const navSections = nav.querySelector('.nav-sections');
-  if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        }
-      });
-    });
-    navSections.querySelectorAll('.button-container').forEach((buttonContainer) => {
-      buttonContainer.classList.remove('button-container');
-      buttonContainer.querySelector('.button').classList.remove('button');
-    });
-  }
-
+  // The tools section: first <ul> = search link, second <ul> = locale list.
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
+    const lists = navTools.querySelectorAll(':scope > ul');
+    if (lists[0]) lists[0].classList.add('nav-search');
+    if (lists[1]) lists[1].classList.add('nav-locale');
+    // Wrap the locale list in a click-to-toggle control.
+    const localeList = lists[1];
+    if (localeList) {
+      const localeToggle = document.createElement('button');
+      localeToggle.type = 'button';
+      localeToggle.className = 'nav-locale-toggle';
+      localeToggle.setAttribute('aria-expanded', 'false');
+      localeToggle.setAttribute('aria-label', 'Open region and language selector');
+      localeToggle.textContent = 'United States | en-US';
+      localeList.parentElement.insertBefore(localeToggle, localeList);
+      localeToggle.addEventListener('click', () => {
+        const open = localeToggle.getAttribute('aria-expanded') === 'true';
+        localeToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+        localeList.classList.toggle('open', !open);
+      });
     }
   }
 
-  // hamburger for mobile
+  // Hamburger (mobile).
   const hamburger = document.createElement('div');
-  hamburger.classList.add('nav-hamburger');
-  hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
-      <span class="nav-hamburger-icon"></span>
-    </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+  hamburger.className = 'nav-hamburger';
+  hamburger.innerHTML = '<button type="button" aria-controls="nav" aria-label="Open navigation"><span class="nav-hamburger-icon"></span></button>';
+  hamburger.addEventListener('click', () => toggleMobileMenu(nav));
   nav.prepend(hamburger);
-  nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+
+  decorateDesktopBehavior(nav);
+  decorateMobileAccordion(nav);
+
+  // Reset state cleanly when crossing the breakpoint.
+  isDesktop.addEventListener('change', () => {
+    closeAllPanels(nav);
+    toggleMobileMenu(nav, true);
+    const button = nav.querySelector('.nav-hamburger button');
+    if (button) button.setAttribute('aria-label', 'Open navigation');
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
-    navWrapper.append(await buildBreadcrumbs());
-  }
+  // Expose the rendered header height so megamenu/locale panels open below the
+  // full header (logo row + primary-nav row), not overlapping the nav row.
+  const setHeaderHeight = () => {
+    const h = navWrapper.getBoundingClientRect().height;
+    if (h) document.documentElement.style.setProperty('--dlp-header-h', `${Math.round(h)}px`);
+  };
+  setHeaderHeight();
+  window.addEventListener('resize', setHeaderHeight);
 }
