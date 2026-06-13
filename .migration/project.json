@@ -3,6 +3,8 @@
   "previewSite": "dla-piper-eds",
   "type": "xwalk",
   "contentHostUrl": "author-p7752-e729659.adobeaemcloud.com",
-  "libraryUrl": "https://main--sta-xwalk-boilerplate--aemysites.aem.page/tools/sidekick/library.json",
-  "baseUrl": "https://dlapiper.com"
+  "aemSitePath": "/content/dla-piper-eds",
+  "aemAssetsFolderPath": "/content/dam/dla-piper-eds",
+  "aemSiteName": "dla-piper-eds",
+  "aemSiteTitle": "DLA Piper POC"
 }

@@ -4,55 +4,68 @@
 /**
  * Transformer: DLA Piper site-wide cleanup.
  *
- * Removes non-authorable site chrome and page-internal navigation so the import
- * contains only authorable page content.
+ * IMPORTANT: This transformer runs against the LIVE rendered dlapiper.com DOM
+ * (after the Vercel Security Checkpoint JS challenge clears), NOT the
+ * pre-cleaned migration-work/cleaned.html scrape. The live page carries chrome
+ * wrappers that the scraper already stripped, so the selectors below target
+ * those live chrome classes. Sources:
+ *   - migration-work/cleaned.html (`.relatedCountries` present at top of main)
+ *   - prior DLA Piper migration experience / project memory
+ *     (`.campaignName`, `.share-component`, `.anchor-nav-component`,
+ *      `.floating-button-component`, `img[src*="rlcdn.com"]`)
  *
- * All selectors below are verified against migration-work/cleaned.html and/or
- * are defensive removals of global chrome that the live page (loaded by the
- * validator) renders but the scraper already stripped from cleaned.html:
- *   - header / global primary nav            -> site chrome (not authorable)
- *   - footer                                 -> site chrome (not authorable)
- *   - cookie consent banner                  -> widget (not authorable)
- *   - share component / floating print btn   -> site chrome (not authorable)
- *   - nav.anchor-nav                         -> page-internal anchor nav (cleaned.html line 16) — excluded from import
- *   - h1#primarytitle ("About us")           -> rendered by the share/title shell (cleaned.html line 13) — not authorable
+ * Header, nav and footer are auto-populated by EDS header/footer blocks, so any
+ * site shell chrome is removed here; only the page-level authorable content
+ * under main#content should survive.
  */
 
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
 
 export default function transform(hookName, element, payload) {
   if (hookName === TransformHook.beforeTransform) {
-    // Widgets / overlays and non-authorable chrome that the LIVE page renders.
-    // Selectors verified against the live rendered DOM (the importer transforms
-    // the live page, not the scraper's pre-cleaned HTML).
+    // Overlays / widgets / tracking that can block or pollute block parsing.
+    // Cookie consent banners (live DOM), floating contact button, social share
+    // widgets, anchor/sticky in-page nav, and the LiveRamp (rlcdn) tracking pixel.
     WebImporter.DOMUtils.remove(element, [
       '#onetrust-consent-sdk',
       '#onetrust-banner-sdk',
-      '[id*="CookieConsent"]',
-      '[class*="cookie-consent"]',
-      '.campaignName',              // empty campaign marker (top of main)
-      '.relatedCountries',          // region/language selector list (top of main)
-      '.share-component',           // share/title shell (contains h1#primarytitle + share links)
-      '.anchor-nav-component',      // page-internal sticky anchor nav (live markup)
-      '.floating-button-component', // floating Print/PDF button (bottom)
-      '.social-share',
+      '.ot-sdk-container',
+      '.cookie-banner',
+      '[class*="cookie"]',
+      '.floating-button-component',
+      '.share-component',
+      '.anchor-nav-component',
+      'img[src*="rlcdn.com"]',
+      'iframe[src*="rlcdn.com"]',
     ]);
   }
 
   if (hookName === TransformHook.afterTransform) {
-    // Non-authorable global chrome and any residual page-internal navigation.
+    // Non-authorable site chrome. Header/nav/footer are rebuilt by EDS blocks.
+    // `.relatedCountries` (top of main) and `.campaignName` are metadata-driven
+    // chrome carried in page metadata, not authorable page content.
     WebImporter.DOMUtils.remove(element, [
       'header',
       'footer',
-      'nav.anchor-nav',     // page-internal anchor nav (pre-cleaned markup variant)
+      'nav',
+      '.relatedCountries',
+      '.campaignName',
+      '.share-component',
       '.anchor-nav-component',
-      'h1#primarytitle',    // title rendered by share/title shell
+      '.floating-button-component',
       'iframe',
-      'link',
       'noscript',
-      'img[src*="rlcdn.com"]',   // RLCDN tracking pixel
-      'img[src*="/pixel"]',      // generic tracking pixels
-      'img[width="1"][height="1"]',
+      'link',
+      'script',
+      'style',
+      'source',
     ]);
+
+    // Strip tracking / behavioral attributes left on surviving elements.
+    element.querySelectorAll('*').forEach((el) => {
+      el.removeAttribute('onclick');
+      el.removeAttribute('data-track');
+      el.removeAttribute('data-tracking');
+    });
   }
 }

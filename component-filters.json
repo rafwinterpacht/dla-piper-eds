@@ -34,9 +34,9 @@
     ]
   },
   {
-    "id": "cards-people",
+    "id": "cards-insights",
     "components": [
-      "card"
+      "card-insights"
     ]
   },
   {
@@ -58,7 +58,7 @@
     ]
   },
   {
-    "id": "columns-media",
+    "id": "columns-contact",
     "components": [
       "column"
     ]

@@ -4,55 +4,37 @@
   },
   "templates": [
     {
-      "name": "about-us",
+      "name": "person-profile",
       "urls": [
-        "https://www.dlapiper.com/en-us/about-us"
+        "https://www.dlapiper.com/en-us/people/r/ryan-frank-w"
       ],
-      "description": "DLA Piper About Us page - firm overview, mission, values, and key information sections",
+      "description": "Attorney/person profile page with bio, contact card, practice areas, credentials, and related content",
       "blocks": [
         {
-          "name": "hero-banner",
-          "instances": [
-            ".hero-component"
-          ]
+          "name": "hero-profile",
+          "instances": [".people-profile-component"]
         },
         {
-          "name": "columns-media",
-          "instances": [
-            ".image-text-component:has(video)"
-          ]
+          "name": "quote-profile",
+          "instances": [".quote-component"]
         },
         {
-          "name": "quote-portrait",
-          "instances": [
-            ".image-text-component:has(.text-box.blue)"
-          ]
+          "name": "cards-insights",
+          "instances": [".tertiary-content-component"]
         },
         {
-          "name": "carousel-awards",
-          "instances": [
-            ".multimedia-highlight-component"
-          ]
-        },
-        {
-          "name": "cards-people",
-          "instances": [
-            ".contact-list"
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "closing-cta",
-          "name": "Closing CTA band",
-          "selector": ".feature-cta-component",
-          "style": "dark",
-          "blocks": [],
-          "defaultContent": [
-            ".feature-cta-component .cta-with-arrow"
-          ]
+          "name": "columns-contact",
+          "instances": [".profile-contact-component"]
         }
       ]
+    },
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.dlapiper.com/en-us"
+      ],
+      "description": "DLA Piper homepage with hero, featured insights/news, capabilities, and promotional sections",
+      "blocks": []
     }
   ]
 }

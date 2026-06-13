@@ -161,6 +161,25 @@
     ]
   },
   {
+    "id": "card-insights",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -251,7 +270,7 @@
     ]
   },
   {
-    "id": "columns-media",
+    "id": "columns-contact",
     "fields": [
       {
         "component": "text",
@@ -340,7 +359,7 @@
     ]
   },
   {
-    "id": "hero-banner",
+    "id": "hero-profile",
     "fields": [
       {
         "component": "reference",
@@ -407,7 +426,7 @@
     ]
   },
   {
-    "id": "quote-portrait",
+    "id": "quote-profile",
     "fields": [
       {
         "component": "richtext",

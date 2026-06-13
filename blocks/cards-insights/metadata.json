@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-insights",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-13T15:47:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/people/r/ryan-frank-w",
+    "originPage": "attorney person-profile page - 'My latest insights' row",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "wide",
+    "purpose": "insights-news-cards",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + category tag + headline + date (card wrapped in link)",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "news / insights / article card rows",
+      "related-content grids with category tag + headline + date",
+      "'My latest insights' / 'Related news' modules"
+    ],
+    "notSuitableFor": [
+      "people / team-member card grids (use a people cards variant)",
+      "feature cards with descriptive paragraphs and CTAs"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/people/r/ryan-frank-w"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T15:47:00.000Z"
+  }
+}
