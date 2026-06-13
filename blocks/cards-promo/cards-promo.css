@@ -1,0 +1,51 @@
+/*
+ * cards-promo - text-only promo cards (eyebrow + headline + link).
+ * Derived from the vanilla cards block; image styles removed, tuned for a
+ * row of publication promos on a dark hero band.
+ */
+.cards-promo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0;
+}
+
+.cards-promo > ul > li {
+  border-left: 1px solid rgb(255 255 255 / 25%);
+  background-color: transparent;
+}
+
+.cards-promo .cards-promo-card-body {
+  margin: 16px;
+  color: #fff;
+}
+
+/* Category eyebrow */
+.cards-promo .cards-promo-card-body :is(small, em, .category) {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+/* Headline */
+.cards-promo .cards-promo-card-body :is(h2, h3, p) {
+  font-size: 1rem;
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+
+/* "Learn more" link */
+.cards-promo .cards-promo-card-body a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cards-promo .cards-promo-card-body a:hover {
+  text-decoration: underline;
+}

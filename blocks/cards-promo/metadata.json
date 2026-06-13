@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-promo",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-13T19:10:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us",
+    "originPage": "homepage - hero 'Publication' promo row",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "publication-promo-cards",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "category eyebrow + headline + 'Learn more' link (no image)",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "text-only promo/teaser card rows",
+      "publication / insight teasers with an eyebrow label + headline + link",
+      "rows of related links overlaid on a hero or accent band"
+    ],
+    "notSuitableFor": [
+      "news/insights cards that include feature images (use cards-insights)",
+      "people / team-member card grids"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T19:10:00.000Z"
+  }
+}
