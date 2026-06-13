@@ -1,0 +1,96 @@
+/* columns-media -- "Our values" two-column media + text
+   Values extracted from .image-text-component:has(video) on dlapiper.com */
+
+.columns-media {
+  color: var(--text-color);
+  margin: 32px 0 0;
+}
+
+/* Row: stacks on mobile, two columns on desktop */
+.columns-media > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Columns */
+.columns-media > div > div {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+/* Media column */
+.columns-media > div > .columns-media-img-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.columns-media .columns-media-img-col video,
+.columns-media .columns-media-img-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.columns-media .columns-media-img-col p {
+  margin: 0;
+  width: 100%;
+}
+
+/* Text column */
+.columns-media > div > div p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
+/* Intro subhead = first paragraph of the text cell (Noto Serif 24px) */
+.columns-media > div > div:not(.columns-media-img-col) > p:first-child {
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  line-height: 28px;
+  padding-bottom: 34px;
+}
+
+/* Value labels */
+.columns-media > div > div strong {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  /* row-reverse: media column (first in DOM) renders on the RIGHT,
+     text column renders on the LEFT, matching the source */
+  .columns-media > div {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ~50/50 split */
+  .columns-media > div > div {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  /* Text column inner padding. Border-box keeps the column at 50%.
+     Source text-box inset the copy from both sides within its half
+     (left ~138px, right ~216px on a ~600px column); we use a smaller
+     inset so the copy stays readable without overflowing. */
+  .columns-media > div > div:not(.columns-media-img-col) {
+    padding: 38px 96px 38px 96px;
+  }
+
+  /* Media sits centered in its half */
+  .columns-media > div > .columns-media-img-col video,
+  .columns-media > div > .columns-media-img-col img {
+    width: 100%;
+    max-width: 480px;
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-banner",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-06-13T19:10:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us",
+    "originPage": "homepage - 'Success, Solved.' marketing hero",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "marketing-hero",
+    "imagePattern": "fullbleed-background"
+  },
+  "contentPattern": {
+    "structure": "full-bleed background image + heading + subheading paragraphs + single CTA button",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage / landing-page marketing heroes",
+      "heroes with an overlaid title and CTA on a full-bleed photo",
+      "dark-band banners pairing a value proposition with a single call-to-action"
+    ],
+    "notSuitableFor": [
+      "person / attorney profile headers with a portrait (use hero-profile)",
+      "plain text intros with no background image"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T19:10:00.000Z"
+  }
+}

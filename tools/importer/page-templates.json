@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "projectType": "xwalk"
+  },
+  "templates": [
+    {
+      "name": "person-profile",
+      "urls": [
+        "https://www.dlapiper.com/en-us/people/r/ryan-frank-w"
+      ],
+      "description": "Attorney/person profile page with bio, contact card, practice areas, credentials, and related content",
+      "blocks": [
+        {
+          "name": "hero-profile",
+          "instances": [".people-profile-component"]
+        },
+        {
+          "name": "quote-profile",
+          "instances": [".quote-component"]
+        },
+        {
+          "name": "cards-insights",
+          "instances": [".tertiary-content-component"]
+        },
+        {
+          "name": "columns-contact",
+          "instances": [".profile-contact-component"]
+        }
+      ]
+    },
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.dlapiper.com/en-us"
+      ],
+      "description": "DLA Piper homepage with hero, featured insights/news, capabilities, and promotional sections",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [".hero-card-container"]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [".hero-card-row"]
+        },
+        {
+          "name": "cards-insights",
+          "instances": [".tertiary-content-component"]
+        },
+        {
+          "name": "columns-cta",
+          "instances": [".feature-cta-component"],
+          "section": "accent-olive"
+        }
+      ]
+    }
+  ]
+}

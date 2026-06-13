@@ -61,6 +61,7 @@ header nav .nav-primary-list {
   display: flex;
   gap: 28px;
   align-items: center;
+  gap: 8px;
 }
 
 header nav .nav-primary-list > li > a {

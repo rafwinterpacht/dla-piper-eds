@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.dlapiper.com/en-us",
+  "path": "en-us",
+  "timestamp": "2026-06-13T19:23:19.081Z",
+  "title": "Global Law Firm | DLA Piper",
+  "template": "homepage",
+  "blocks": [
+    "hero-banner",
+    "cards-promo",
+    "cards-insights",
+    "columns-cta"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-cta",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-13T19:10:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us",
+    "originPage": "homepage - olive 'Find a career / Find a lawyer' feature CTA band",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "feature-cta",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "two side-by-side large heading CTAs, each with a trailing arrow link",
+    "buttonCount": 2,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "feature CTA bands pairing two large call-to-action links",
+      "side-by-side 'do X / do Y' navigational prompts on an accent band",
+      "large arrow-style CTA layouts"
+    ],
+    "notSuitableFor": [
+      "multi-field contact panels (use columns-contact)",
+      "media + descriptive text columns"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T19:10:00.000Z"
+  }
+}

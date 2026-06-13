@@ -1,0 +1,61 @@
+/*
+ * columns-cta - two large arrow CTAs side-by-side on an olive accent band.
+ * Derived from the vanilla columns block, class names renamed to the
+ * columns-cta variant and tuned for the feature-CTA treatment.
+ */
+.columns-cta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.columns-cta > div > div {
+  order: 1;
+  flex: 1;
+}
+
+.columns-cta > div > .columns-cta-img-col {
+  order: 0;
+}
+
+.columns-cta > div > .columns-cta-img-col img {
+  display: block;
+  width: 100%;
+}
+
+/* Large CTA heading + trailing arrow */
+.columns-cta .cta-text,
+.columns-cta h2 {
+  font-size: 3rem;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.columns-cta a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid currentcolor;
+  color: inherit;
+  text-decoration: none;
+}
+
+.columns-cta a::after {
+  content: '→';
+  font-size: 2rem;
+  line-height: 1;
+}
+
+@media (width >= 900px) {
+  .columns-cta > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 64px;
+  }
+
+  .columns-cta > div > div {
+    order: unset;
+  }
+}

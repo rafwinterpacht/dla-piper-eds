@@ -1,0 +1,234 @@
+/* Block: carousel-awards
+ * Award tiles carousel. Each slide is a full-width tile that alternates between
+ * brand yellow and navy backgrounds, with a trophy glyph, a bold centered title
+ * and an italic source/year line. Single-slide-at-a-time EDS carousel layout. */
+
+.carousel-awards .carousel-awards-slides-container {
+  position: relative;
+}
+
+.carousel-awards .carousel-awards-slides,
+.carousel-awards .carousel-awards-slide-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-awards .carousel-awards-slides {
+  display: flex;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overflow: scroll clip;
+}
+
+.carousel-awards .carousel-awards-slides::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Slide tile --- */
+.carousel-awards .carousel-awards-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  padding: 48px 24px;
+  box-sizing: border-box;
+}
+
+/* Alternate tile backgrounds by slide order */
+.carousel-awards .carousel-awards-slide:nth-child(odd) {
+  background-color: rgb(221 222 76); /* brand yellow */
+}
+
+.carousel-awards .carousel-awards-slide:nth-child(even) {
+  background-color: rgb(0 34 64); /* brand navy */
+}
+
+/* The first cell is empty (image column) -- hide it so it does not add height */
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-image {
+  display: none;
+}
+
+/* --- Slide content --- */
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Trophy affordance above the title.
+ * Inline SVG via mask so it always renders (no emoji-font dependency) and
+ * inherits the tile content color (navy on yellow, yellow on navy). */
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content::before {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 24px;
+  background-color: currentcolor;
+  mask: var(--trophy-icon) center / contain no-repeat;
+  -webkit-mask: var(--trophy-icon) center / contain no-repeat;
+}
+
+.carousel-awards {
+  --trophy-icon: url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" \
+stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\
+<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/>\
+<path d="M7 6H4a2 2 0 0 0 2 4M17 6h3a2 2 0 0 1-2 4"/></svg>');
+}
+
+/* Title */
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content h1,
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content h2,
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content h3,
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content h4 {
+  font-family: var(--body-font-family);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  text-align: center;
+}
+
+/* Source / year line */
+.carousel-awards .carousel-awards-slide .carousel-awards-slide-content p {
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+/* Content colors per background: navy on yellow, yellow on navy */
+.carousel-awards .carousel-awards-slide:nth-child(odd) .carousel-awards-slide-content,
+.carousel-awards .carousel-awards-slide:nth-child(odd) .carousel-awards-slide-content h1,
+.carousel-awards .carousel-awards-slide:nth-child(odd) .carousel-awards-slide-content h2,
+.carousel-awards .carousel-awards-slide:nth-child(odd) .carousel-awards-slide-content h3,
+.carousel-awards .carousel-awards-slide:nth-child(odd) .carousel-awards-slide-content h4,
+.carousel-awards .carousel-awards-slide:nth-child(odd) .carousel-awards-slide-content p {
+  color: rgb(0 34 64); /* navy on yellow */
+}
+
+.carousel-awards .carousel-awards-slide:nth-child(even) .carousel-awards-slide-content,
+.carousel-awards .carousel-awards-slide:nth-child(even) .carousel-awards-slide-content h1,
+.carousel-awards .carousel-awards-slide:nth-child(even) .carousel-awards-slide-content h2,
+.carousel-awards .carousel-awards-slide:nth-child(even) .carousel-awards-slide-content h3,
+.carousel-awards .carousel-awards-slide:nth-child(even) .carousel-awards-slide-content h4,
+.carousel-awards .carousel-awards-slide:nth-child(even) .carousel-awards-slide-content p {
+  color: rgb(221 222 76); /* yellow on navy */
+}
+
+/* --- Slide indicators (dots) --- */
+.carousel-awards .carousel-awards-slide-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 12px;
+  padding: 16px 12px;
+  line-height: 0;
+}
+
+.carousel-awards .carousel-awards-slide-indicator button {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #c9cbd1;
+  transition: background-color 0.2s;
+}
+
+.carousel-awards .carousel-awards-slide-indicator button:disabled,
+.carousel-awards .carousel-awards-slide-indicator button:hover,
+.carousel-awards .carousel-awards-slide-indicator button:focus-visible {
+  background-color: rgb(0 34 64);
+}
+
+/* --- Prev / next navigation --- */
+.carousel-awards .carousel-awards-navigation-buttons {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel-awards .carousel-awards-navigation-buttons button {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background-color: rgb(255 255 255 / 85%);
+  transition: background-color 0.2s;
+}
+
+.carousel-awards .carousel-awards-navigation-buttons button:hover,
+.carousel-awards .carousel-awards-navigation-buttons button:focus-visible {
+  background-color: rgb(255 255 255);
+}
+
+.carousel-awards .carousel-awards-navigation-buttons button::after {
+  display: block;
+  content: '';
+  border: 2px solid rgb(0 34 64);
+  border-bottom: 0;
+  border-left: 0;
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 2px);
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.carousel-awards .carousel-awards-navigation-buttons button.slide-next::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: calc(50% - 2px);
+}
+
+@media (width >= 900px) {
+  .carousel-awards .carousel-awards-slide {
+    min-height: 420px;
+    padding: 64px 24px;
+  }
+
+  .carousel-awards .carousel-awards-slide .carousel-awards-slide-content::before {
+    font-size: 90px;
+  }
+
+  .carousel-awards .carousel-awards-slide .carousel-awards-slide-content h1,
+  .carousel-awards .carousel-awards-slide .carousel-awards-slide-content h2,
+  .carousel-awards .carousel-awards-slide .carousel-awards-slide-content h3,
+  .carousel-awards .carousel-awards-slide .carousel-awards-slide-content h4 {
+    font-size: 24px;
+  }
+
+  .carousel-awards .carousel-awards-navigation-buttons {
+    left: 24px;
+    right: 24px;
+  }
+}

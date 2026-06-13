@@ -1,0 +1,25 @@
+/* DLA Piper brand tokens — extracted from https://www.dlapiper.com/en-us/about-us */
+:root {
+  --heading-font-family: "Noto Serif", Georgia, serif;
+  --body-font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  --background-color: rgb(255 255 255);
+  --text-color: rgb(0 34 64);
+  --link-color: rgb(115 118 39);
+  --link-hover-color: rgb(10 88 202);
+
+  /* DLA Piper brand palette */
+  --brand-navy: rgb(0 34 64);
+  --brand-yellow: rgb(221 222 76);
+  --brand-olive: rgb(115 118 39);
+
+  --section-padding: 0px;
+  --nav-height: 64px;
+
+  /* heading sizes (desktop) */
+  --heading-size-xxl: 40px;
+  --heading-size-xl: 40px;
+  --heading-size-l: 24px;
+  --heading-size-m: 20px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+}

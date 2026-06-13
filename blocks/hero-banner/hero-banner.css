@@ -1,0 +1,85 @@
+/*
+ * hero-banner - full-bleed marketing hero with overlaid title + CTA on a
+ * dark navy band. Derived from the vanilla hero block, class names renamed
+ * to the hero-banner variant.
+ */
+.hero-banner-container .hero-banner-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 480px;
+  padding: 64px 24px;
+  background-color: #16243f; /* navy fallback behind image */
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Full-bleed background image */
+.hero-banner .hero-banner-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero-banner .hero-banner-image picture,
+.hero-banner .hero-banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay so the white text stays legible over photography */
+.hero-banner .hero-banner-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(13 26 51 / 80%) 0%, rgb(13 26 51 / 35%) 100%);
+}
+
+/* Overlaid text content */
+.hero-banner .hero-banner-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.hero-banner .hero-banner-content h1 {
+  color: #fff;
+  font-size: 4rem;
+  line-height: 1.05;
+  margin: 0 0 16px;
+}
+
+.hero-banner .hero-banner-content p {
+  color: #fff;
+  font-size: 1.25rem;
+  margin: 0 0 8px;
+}
+
+.hero-banner .hero-banner-content .button-container {
+  margin-top: 24px;
+}
+
+.hero-banner .hero-banner-content a.button {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 24px;
+  background: #fff;
+  color: #16243f;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .hero-banner {
+    padding: 96px 64px;
+  }
+}
