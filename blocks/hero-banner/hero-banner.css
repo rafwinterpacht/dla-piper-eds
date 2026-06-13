@@ -1,0 +1,77 @@
+/* Block: hero-banner -- full-bleed banner with overlaid title.
+   Values extracted from source computed styles (dlapiper.com /en-us/about-us). */
+
+/* Full-bleed: cancel the section's max-width/padding so the image spans edge-to-edge */
+.hero-banner-container .hero-banner-wrapper {
+  max-width: unset;
+  margin: 0;
+  padding: 0;
+}
+
+/* Block is the positioning context; the image fills it, the title overlays it. */
+.hero-banner {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  min-height: 300px;
+  padding: 40px 24px;
+  overflow: hidden;
+}
+
+/* Background image cell -- pulled out of flow and stretched to cover the block. */
+.hero-banner > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero-banner > div:first-child > div,
+.hero-banner > div:first-child p,
+.hero-banner > div:first-child picture {
+  display: block;
+  height: 100%;
+  margin: 0;
+}
+
+.hero-banner picture {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Title cell -- sits above the image, aligned to the centered content column. */
+.hero-banner > div:last-child {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-banner h1 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 300;
+  font-size: var(--heading-font-size-xl);
+  line-height: 1.16;
+  color: var(--background-color);
+}
+
+@media (width >= 900px) {
+  .hero-banner {
+    min-height: 520px;
+    padding: 72px 32px;
+  }
+
+  .hero-banner h1 {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "variantName": "cards-people",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-12T19:48:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/about-us",
+    "originPage": "About Us landing page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "team",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "grid of person cards: portrait image + name + role, card linked to bio",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "leadership / team member grids",
+      "people directories where each card links to a bio page"
+    ],
+    "notSuitableFor": [
+      "side-by-side feature panels (use columns)",
+      "pull-quotes (use quote)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/about-us"],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-12T19:48:00.000Z"
+  }
+}

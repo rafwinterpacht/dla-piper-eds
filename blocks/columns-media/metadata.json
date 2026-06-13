@@ -1,0 +1,37 @@
+{
+  "variantName": "columns-media",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-12T19:48:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/about-us",
+    "originPage": "About Us landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "two-column media (image or video) + rich text",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "side-by-side media + text feature panels",
+      "value/feature explanations with an accompanying image or video"
+    ],
+    "notSuitableFor": [
+      "repeating grids of items (use cards)",
+      "pull-quotes (use quote)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/about-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-12T19:48:00.000Z"
+  }
+}
