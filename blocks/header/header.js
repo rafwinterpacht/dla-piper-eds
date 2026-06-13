@@ -158,26 +158,50 @@ export default async function decorate(block) {
     if (primaryList) primaryList.classList.add('nav-primary-list');
   }
 
-  // Tools: first ul = search link(s), second ul = locale list.
-  if (tools) {
-    const lists = tools.querySelectorAll('ul');
-    if (lists[0]) lists[0].classList.add('nav-search');
-    if (lists[1]) lists[1].classList.add('nav-locale');
-    const localeList = lists[1];
-    if (localeList) {
-      const localeToggle = document.createElement('button');
-      localeToggle.type = 'button';
-      localeToggle.className = 'nav-locale-toggle';
-      localeToggle.setAttribute('aria-expanded', 'false');
-      localeToggle.setAttribute('aria-label', 'Open region and language selector');
-      localeToggle.textContent = 'United States | en-US';
-      localeList.parentElement.insertBefore(localeToggle, localeList);
-      localeToggle.addEventListener('click', () => {
-        const open = localeToggle.getAttribute('aria-expanded') === 'true';
-        localeToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-        localeList.classList.toggle('open', !open);
-      });
+  // Locate the locale list by CONTENT, anywhere in the nav — do not rely on it
+  // landing in a particular group/position. AEM's fragment conversion can merge
+  // or regroup the tools lists, which left the locale list untagged and fully
+  // visible (spilling over the hero). The locale list is the <ul> whose links
+  // point at other region/language home pages (/en, /en-xx, /zh-xx, /ja-jp ...)
+  // and is NOT the primary nav list.
+  const localePattern = /^\/(?:[a-z]{2})(?:-[a-z]{2})?(?:\/|$)/i;
+  let localeList = null;
+  let bestScore = 0;
+  nav.querySelectorAll('ul').forEach((ul) => {
+    if (ul.classList.contains('nav-primary-list') || ul.closest('.nav-submenu')) return;
+    const links = Array.from(ul.querySelectorAll(':scope > li > a'));
+    if (links.length < 5) return;
+    const score = links.filter((a) => localePattern.test(a.getAttribute('href') || '')).length;
+    if (score >= 5 && score > bestScore) {
+      bestScore = score;
+      localeList = ul;
     }
+  });
+
+  if (tools) {
+    // Tag the search list (a tools list that is not the locale list).
+    tools.querySelectorAll('ul').forEach((ul) => {
+      if (ul !== localeList) ul.classList.add('nav-search');
+    });
+  }
+
+  if (localeList) {
+    localeList.classList.add('nav-locale');
+    // Ensure the locale list lives inside .nav-tools so it is positioned and
+    // hidden correctly even if AEM grouped it elsewhere.
+    if (tools && !tools.contains(localeList)) tools.append(localeList);
+    const localeToggle = document.createElement('button');
+    localeToggle.type = 'button';
+    localeToggle.className = 'nav-locale-toggle';
+    localeToggle.setAttribute('aria-expanded', 'false');
+    localeToggle.setAttribute('aria-label', 'Open region and language selector');
+    localeToggle.textContent = 'United States | en-US';
+    localeList.parentElement.insertBefore(localeToggle, localeList);
+    localeToggle.addEventListener('click', () => {
+      const open = localeToggle.getAttribute('aria-expanded') === 'true';
+      localeToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      localeList.classList.toggle('open', !open);
+    });
   }
 
   // Hamburger (mobile).

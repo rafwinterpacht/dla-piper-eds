@@ -61,7 +61,6 @@ header nav .nav-primary-list {
   display: flex;
   gap: 28px;
   align-items: center;
-  gap: 8px;
 }
 
 header nav .nav-primary-list > li > a {
@@ -163,13 +162,14 @@ header nav .nav-locale-toggle::before {
   margin-right: 6px;
 }
 
-/* Locale list is hidden until toggled (structural: covers .nav-locale and any
-   nested list inside tools), so it never renders as a standing bullet list. */
-header nav .nav-tools .nav-locale {
+/* Locale list is hidden until toggled. Scoped to .nav-locale ANYWHERE in the
+   nav (not only inside .nav-tools) so it never renders as a standing bullet
+   list even if AEM grouped it into a different section. */
+header nav .nav-locale {
   display: none;
 }
 
-header nav .nav-tools .nav-locale.open {
+header nav .nav-locale.open {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 8px 24px;
@@ -185,13 +185,14 @@ header nav .nav-tools .nav-locale.open {
   z-index: 30;
 }
 
-header nav .nav-tools .nav-locale.open a {
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-locale.open a {
   color: var(--dlp-navy);
   text-decoration: none;
   font-size: 14px;
 }
 
-header nav .nav-tools .nav-locale.open a:hover {
+header nav .nav-locale.open a:hover {
   color: var(--dlp-olive);
   text-decoration: underline;
 }
@@ -374,7 +375,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 
   header nav .nav-submenu img { display: none; }
 
-  header nav .nav-tools .nav-locale.open {
+  header nav .nav-locale.open {
     top: var(--dlp-header-h, var(--dlp-nav-height));
   }
 }
