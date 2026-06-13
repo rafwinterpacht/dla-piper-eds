@@ -1,5 +1,2 @@
 mountpoints:
-  /:
-    url: "https://author-p7752-e729659.adobeaemcloud.com/bin/franklin.delivery/rafwinterpacht/dla-piper-eds/main"
-    type: "markup"
-    suffix: ".html"
+  /: https://author-p7752-e729659.adobeaemcloud.com/bin/franklin.delivery/rafwinterpacht/dla-piper-eds/main

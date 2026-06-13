@@ -1,0 +1,114 @@
+/* cards-people -- responsive grid of person cards (DLA Piper .contact-list) */
+/* Values extracted from source computed styles (1440px desktop). */
+
+.cards-people > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 16px;
+  row-gap: 28px;
+}
+
+/* Card -- minimal chrome, transparent, centered (source: a.contact-card) */
+.cards-people > ul > li {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: center;
+}
+
+/* Portrait image (source: 142x142 square crop, slight rounding) */
+.cards-people .cards-people-card-image {
+  line-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.cards-people .cards-people-card-image p {
+  margin: 0;
+  line-height: 0;
+}
+
+.cards-people .cards-people-card-image picture,
+.cards-people .cards-people-card-image img {
+  display: block;
+  width: 142px;
+  height: 142px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 50%;
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+/* Text body (source: .contact-name + .bottomtext) */
+.cards-people .cards-people-card-body {
+  margin: 0;
+  padding: 31px 0 0;
+}
+
+.cards-people .cards-people-card-body p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Name -- reset EDS button decoration on the link, render as plain bold text */
+.cards-people .cards-people-card-body p.button-container {
+  margin: 0;
+}
+
+.cards-people .cards-people-card-body a,
+.cards-people .cards-people-card-body a.button:any-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  text-align: center;
+  text-transform: none;
+  white-space: normal;
+  overflow: visible;
+  color: rgb(21 37 63);
+}
+
+.cards-people .cards-people-card-body a:hover,
+.cards-people .cards-people-card-body a.button:hover {
+  background: transparent;
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Role lines (source: .bottomtext) */
+.cards-people .cards-people-card-body p + p {
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: rgb(21 37 63);
+  padding-top: 8px;
+}
+
+/* tighten the gap between consecutive role lines */
+.cards-people .cards-people-card-body p + p + p {
+  padding-top: 0;
+}
+
+@media (width >= 600px) {
+  .cards-people > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-people > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -52,6 +52,12 @@
     ]
   },
   {
+    "id": "carousel-awards",
+    "components": [
+      "carousel-awards-item"
+    ]
+  },
+  {
     "id": "carousel",
     "components": [
       "carousel-item"
