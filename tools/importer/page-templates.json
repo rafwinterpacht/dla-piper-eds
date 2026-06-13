@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "projectType": "xwalk"
+  },
+  "templates": [
+    {
+      "name": "about-us",
+      "urls": [
+        "https://www.dlapiper.com/en-us/about-us"
+      ],
+      "description": "DLA Piper About Us page - firm overview, mission, values, and key information sections",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            ".hero-component"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            ".image-text-component:has(video)"
+          ]
+        },
+        {
+          "name": "quote-portrait",
+          "instances": [
+            ".image-text-component:has(.text-box.blue)"
+          ]
+        },
+        {
+          "name": "carousel-awards",
+          "instances": [
+            ".multimedia-highlight-component"
+          ]
+        },
+        {
+          "name": "cards-people",
+          "instances": [
+            ".contact-list"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "closing-cta",
+          "name": "Closing CTA band",
+          "selector": ".feature-cta-component",
+          "style": "dark",
+          "blocks": [],
+          "defaultContent": [
+            ".feature-cta-component .cta-with-arrow"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "variantName": "quote-portrait",
+  "baseBlock": "quote",
+  "version": "1.0.0",
+  "created": "2026-06-12T19:48:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/about-us",
+    "originPage": "About Us landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "testimonial",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "portrait image + pull-quote + attribution (linked name + role)",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "testimonial / pull-quote panels with a person portrait and attribution",
+      "dark-background highlighted quotes"
+    ],
+    "notSuitableFor": [
+      "plain inline quotes without attribution",
+      "repeating card grids"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/about-us"],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-12T19:48:00.000Z"
+  }
+}
