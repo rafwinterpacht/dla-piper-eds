@@ -40,12 +40,18 @@ async function fetchNav() {
 }
 
 /**
- * Flatten AEM section wrappers so each top-level section's meaningful content
- * (ul / p) becomes a direct child. Unwraps .section and .default-content-wrapper
- * (and any single-child wrapper div) in place.
+ * Normalize the fetched fragment so the three authored groups (brand, primary
+ * nav, tools) are the top-level children — in BOTH environments:
+ *   - local `aem up`: groups are plain <div>s separated by `---` -> already direct children.
+ *   - AEM: each `---` becomes a <div class="section">, and that section's content is
+ *     nested under <div class="default-content-wrapper">. We must KEEP .section (it is
+ *     our grouping) but flatten the inner .default-content-wrapper so each group's
+ *     <ul>/<p> becomes a direct child of the group.
+ * Removing .section here (as an earlier version did) flattens all three groups into one,
+ * which is why the AEM nav rendered as a single un-grouped, un-collapsed bullet list.
  */
 function unwrap(el) {
-  el.querySelectorAll('.section, .default-content-wrapper').forEach((w) => {
+  el.querySelectorAll('.default-content-wrapper').forEach((w) => {
     w.replaceWith(...w.childNodes);
   });
 }
@@ -58,8 +64,10 @@ function closeAllPanels(nav) {
 
 function decorateDesktopBehavior(nav) {
   nav.querySelectorAll('.nav-primary-list > li').forEach((li) => {
-    const submenu = li.querySelector(':scope > ul');
-    const trigger = li.querySelector(':scope > a');
+    // Submenu may not be a strict direct child after AEM conversion; take the
+    // first nested <ul> anywhere inside this top-level item.
+    const submenu = li.querySelector('ul');
+    const trigger = li.querySelector('a');
     if (!submenu || !trigger) return;
     li.classList.add('nav-drop');
     li.setAttribute('aria-expanded', 'false');
@@ -98,7 +106,7 @@ function decorateMobileAccordion(nav) {
     trigger.addEventListener('click', (e) => {
       if (isDesktop.matches) return;
       const li = trigger.closest('li');
-      if (!li.querySelector(':scope > ul')) return;
+      if (!li.querySelector('ul')) return;
       e.preventDefault();
       const open = li.getAttribute('aria-expanded') === 'true';
       li.setAttribute('aria-expanded', open ? 'false' : 'true');
@@ -119,11 +127,32 @@ export default async function decorate(block) {
     while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
   }
 
-  // The fragment's three sections are authored in a fixed order: brand, primary
-  // nav, tools. After unwrap() that order is preserved, so tag by position.
-  // (The earlier AEM breakage was a CSS direct-child issue, not ordering.)
+  // Identify the three groups by CONTENT SIGNATURE, not by position. AEM and the
+  // local `aem up` pipeline can differ in child count/order, and positional
+  // tagging mis-assigned the groups in AEM (nav group left untagged -> rendered
+  // as a raw, full-height list that covered the hero). Signatures are unambiguous:
+  //   primary nav (sections) = the group whose list has NESTED sub-lists (megamenu)
+  //   brand                  = the group that contains an <img> (logo)
+  //   tools                  = the remaining group (search + locale)
   const topSections = Array.from(nav.children).filter((c) => c.tagName === 'DIV');
-  const [brand, sections, tools] = topSections;
+  let brand;
+  let sections;
+  let tools;
+  topSections.forEach((sec) => {
+    if (!sections && sec.querySelector('ul ul')) {
+      sections = sec;
+    } else if (!brand && sec.querySelector('img') && !sec.querySelector('ul')) {
+      brand = sec;
+    }
+  });
+  // Whatever is left (not nav, not brand) is tools.
+  topSections.forEach((sec) => {
+    if (sec !== sections && sec !== brand && !tools) tools = sec;
+  });
+  // Position fallbacks if a signature was inconclusive.
+  if (!brand) brand = topSections.find((s) => s.querySelector('img'));
+  if (!sections) sections = topSections.find((s) => s !== brand && s.querySelector('ul'));
+  if (!tools) tools = topSections.find((s) => s !== brand && s !== sections);
 
   if (brand) brand.classList.add('nav-brand');
   if (sections) sections.classList.add('nav-sections');
