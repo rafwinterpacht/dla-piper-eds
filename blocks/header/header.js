@@ -1,6 +1,11 @@
 // DLA Piper header: click-triggered megamenu panels (desktop) + full-screen drawer (mobile).
 // Content-first: all labels/links/images come from content/nav.plain.html. This file
 // only reads that DOM and wires structure + behavior; it hardcodes no copy.
+//
+// Robustness: works both in local `aem up` preview (raw fragment: section div > ul)
+// and in AEM (which can wrap section content in .section / .default-content-wrapper
+// divs). We normalize the fetched DOM and tag elements with explicit classes so the
+// CSS never depends on a fragile direct-child relationship.
 
 import { getMetadata } from '../../scripts/aem.js';
 
@@ -11,16 +16,38 @@ const isDesktop = window.matchMedia('(min-width: 900px)');
  */
 async function fetchNav() {
   let resp = await fetch('/content/nav.plain.html');
+  let base = '/content/nav.plain.html';
   if (!resp.ok) {
     const navMeta = getMetadata('nav');
     const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-    resp = await fetch(`${navPath}.plain.html`);
+    base = `${navPath}.plain.html`;
+    resp = await fetch(base);
   }
   if (!resp.ok) return null;
   const html = await resp.text();
   const tmp = document.createElement('div');
   tmp.innerHTML = html;
+
+  // Resolve relative image paths (e.g. images/logo.svg) against the fragment's
+  // location so the logo/icons load regardless of the current page URL.
+  tmp.querySelectorAll('img[src]').forEach((img) => {
+    const src = img.getAttribute('src');
+    if (src && !/^(https?:)?\/\//.test(src) && !src.startsWith('data:')) {
+      img.setAttribute('src', new URL(src, new URL(base, window.location)).href);
+    }
+  });
   return tmp;
+}
+
+/**
+ * Flatten AEM section wrappers so each top-level section's meaningful content
+ * (ul / p) becomes a direct child. Unwraps .section and .default-content-wrapper
+ * (and any single-child wrapper div) in place.
+ */
+function unwrap(el) {
+  el.querySelectorAll('.section, .default-content-wrapper').forEach((w) => {
+    w.replaceWith(...w.childNodes);
+  });
 }
 
 function closeAllPanels(nav) {
@@ -30,13 +57,13 @@ function closeAllPanels(nav) {
 }
 
 function decorateDesktopBehavior(nav) {
-  const topItems = nav.querySelectorAll('.nav-sections > ul > li');
-  topItems.forEach((li) => {
+  nav.querySelectorAll('.nav-primary-list > li').forEach((li) => {
     const submenu = li.querySelector(':scope > ul');
     const trigger = li.querySelector(':scope > a');
     if (!submenu || !trigger) return;
     li.classList.add('nav-drop');
     li.setAttribute('aria-expanded', 'false');
+    submenu.classList.add('nav-submenu');
     // Click on the top-level label toggles its panel (source uses click, not hover).
     trigger.addEventListener('click', (e) => {
       if (!isDesktop.matches) return; // mobile handled separately
@@ -67,12 +94,11 @@ function toggleMobileMenu(nav, forceClose) {
 
 function decorateMobileAccordion(nav) {
   // On mobile, tapping a top-level label expands its sub-list in place (accordion).
-  nav.querySelectorAll('.nav-sections > ul > li.nav-drop > a').forEach((trigger) => {
+  nav.querySelectorAll('.nav-primary-list > li.nav-drop > a').forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
       if (isDesktop.matches) return;
       const li = trigger.closest('li');
-      const submenu = li.querySelector(':scope > ul');
-      if (!submenu) return;
+      if (!li.querySelector(':scope > ul')) return;
       e.preventDefault();
       const open = li.getAttribute('aria-expanded') === 'true';
       li.setAttribute('aria-expanded', open ? 'false' : 'true');
@@ -89,22 +115,32 @@ export default async function decorate(block) {
   nav.setAttribute('aria-expanded', 'false');
 
   if (fragment) {
+    unwrap(fragment);
     while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
   }
 
-  // Tag the three top-level sections: brand, sections (primary nav), tools (search + locale).
-  const sectionClasses = ['nav-brand', 'nav-sections', 'nav-tools'];
-  sectionClasses.forEach((cls, i) => {
-    if (nav.children[i]) nav.children[i].classList.add(cls);
-  });
+  // The fragment's three sections are authored in a fixed order: brand, primary
+  // nav, tools. After unwrap() that order is preserved, so tag by position.
+  // (The earlier AEM breakage was a CSS direct-child issue, not ordering.)
+  const topSections = Array.from(nav.children).filter((c) => c.tagName === 'DIV');
+  const [brand, sections, tools] = topSections;
 
-  // The tools section: first <ul> = search link, second <ul> = locale list.
-  const navTools = nav.querySelector('.nav-tools');
-  if (navTools) {
-    const lists = navTools.querySelectorAll(':scope > ul');
+  if (brand) brand.classList.add('nav-brand');
+  if (sections) sections.classList.add('nav-sections');
+  if (tools) tools.classList.add('nav-tools');
+
+  // Tag the primary nav list explicitly so CSS does not depend on direct-child
+  // structure (AEM may wrap it in .default-content-wrapper).
+  if (sections) {
+    const primaryList = sections.querySelector('ul');
+    if (primaryList) primaryList.classList.add('nav-primary-list');
+  }
+
+  // Tools: first ul = search link(s), second ul = locale list.
+  if (tools) {
+    const lists = tools.querySelectorAll('ul');
     if (lists[0]) lists[0].classList.add('nav-search');
     if (lists[1]) lists[1].classList.add('nav-locale');
-    // Wrap the locale list in a click-to-toggle control.
     const localeList = lists[1];
     if (localeList) {
       const localeToggle = document.createElement('button');
