@@ -20,37 +20,45 @@ header .nav-wrapper {
 header nav {
   box-sizing: border-box;
   display: grid;
-  grid-template:
-    'hamburger brand tools' var(--dlp-nav-height)
-    'sections sections sections' 1fr / auto 1fr auto;
+  grid-template-areas:
+    'brand tools'
+    'sections sections';
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 0 16px;
-  margin: auto;
-  max-width: 1264px;
-  min-height: var(--dlp-nav-height);
-  padding: 0 24px;
-  font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  column-gap: 24px;
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: var(--dlp-header-height);
+  padding: 0 32px;
+  font-family: var(--body-font-family, 'Noto Sans', sans-serif);
 }
 
-/* ---------- Brand ---------- */
+/* ---- Brand / logo ---- */
 header nav .nav-brand {
   grid-area: brand;
+  display: flex;
+  align-items: center;
+  min-height: var(--dlp-brand-row-height);
 }
 
 header nav .nav-brand p { margin: 0; }
 
-header nav .nav-brand img {
-  height: 36px;
-  width: auto;
-  display: block;
+header nav .nav-brand a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
 
-/* ---------- Lists reset ---------- */
-header nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+header nav .nav-brand img {
+  display: block;
+  height: 40px;
+  width: auto;
 }
+
+/* first svg = symbol, second = wordmark */
+header nav .nav-brand img:first-child { height: 44px; }
+header nav .nav-brand img:last-child { height: 24px; }
 
 /* ---------- Primary nav (sections) ---------- */
 header nav .nav-sections {
@@ -61,6 +69,12 @@ header nav .nav-primary-list {
   display: flex;
   gap: 28px;
   align-items: center;
+  gap: 8px;
+}
+
+/* ---- Primary nav row (megamenu triggers) ---- */
+header nav .nav-sections {
+  grid-area: sections;
 }
 
 header nav .nav-primary-list > li > a {

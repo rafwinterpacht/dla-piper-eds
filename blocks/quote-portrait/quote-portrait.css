@@ -1,0 +1,76 @@
+/* quote-portrait
+ * Source: dlapiper.com /en-us/about-us -- .image-text-component .text-box.blue
+ * A navy pull-quote panel (white serif quote + attribution). The source pairs it
+ * with a portrait photo; the migrated EDS markup has no image, so the navy panel
+ * stands on its own as a contained card.
+ */
+
+/* The navy panel = the decorated blockquote */
+.quote-portrait blockquote {
+  margin: 0;
+  padding: 32px 24px;
+  background-color: var(--dark-color); /* rgb(0 34 64) */
+  color: #fff;
+}
+
+/* Quotation text -- large white serif pull-quote */
+.quote-portrait blockquote .quote-portrait-quotation {
+  margin: 0;
+}
+
+.quote-portrait blockquote .quote-portrait-quotation > * {
+  margin: 0;
+  color: #fff;
+  font-family: var(--heading-font-family); /* Noto Serif */
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.15;
+}
+
+/* Attribution line -- white, name link bold white (override global olive links) */
+.quote-portrait blockquote .quote-portrait-attribution {
+  margin: 16px 0 0;
+  text-align: left;
+}
+
+.quote-portrait blockquote .quote-portrait-attribution p {
+  margin: 0;
+  color: #fff;
+  font-family: var(--body-font-family); /* Noto Sans */
+  font-size: var(--body-font-size-s);   /* 16px */
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.quote-portrait blockquote .quote-portrait-attribution p strong {
+  font-weight: 700;
+}
+
+.quote-portrait blockquote .quote-portrait-attribution a,
+.quote-portrait blockquote .quote-portrait-attribution a:any-link {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.quote-portrait blockquote .quote-portrait-attribution a:hover,
+.quote-portrait blockquote .quote-portrait-attribution a:focus {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* No em-dash before attribution (source uses "Name, Role") */
+.quote-portrait blockquote .quote-portrait-attribution p:first-child::before {
+  content: none;
+}
+
+@media (width >= 900px) {
+  .quote-portrait blockquote {
+    padding: 38px 48px;
+  }
+
+  .quote-portrait blockquote .quote-portrait-quotation > * {
+    font-size: 32px;
+    line-height: 1.03;
+  }
+}
