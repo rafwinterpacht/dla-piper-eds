@@ -41,24 +41,43 @@ var CustomImportScript = (() => {
     default: () => import_about_us_default
   });
 
-  // tools/importer/parsers/hero-banner.js
+  // tools/importer/parsers/hero-article.js
   function parse(element, { document }) {
-    const image = element.querySelector('img.hero-img, img[class*="hero"], picture img, img');
-    let heading = element.querySelector("h1, h2, h3, h1.title, .title");
-    if (!heading) {
-      const titleWrap = element.querySelector('[class*="title"]');
-      heading = titleWrap ? titleWrap.querySelector("h1, h2, h3, h4") || titleWrap : null;
+    const image = element.querySelector(".editorial-hero-image img.hero-img, .editorial-hero-image img, .hero-img-wrapper img, img");
+    const textContent = [];
+    const dateEl = element.querySelector(".tag-section p, .tag-section span, .tag-section");
+    if (dateEl) {
+      const dateText = dateEl.textContent.replace(/\s+/g, " ").trim();
+      if (dateText) {
+        const p = document.createElement("p");
+        p.textContent = dateText;
+        textContent.push(p);
+      }
+    }
+    const heading = element.querySelector(".hero-title-section h1.title, .hero-title-section h1, h1");
+    if (heading) {
+      const h1 = document.createElement("h1");
+      h1.append(...heading.cloneNode(true).childNodes);
+      if (h1.textContent.trim()) textContent.push(h1);
     }
     const cells = [];
-    const imageCell = document.createDocumentFragment();
-    imageCell.appendChild(document.createComment(" field:image "));
-    if (image) imageCell.appendChild(image);
-    cells.push([imageCell]);
-    const textCell = document.createDocumentFragment();
-    textCell.appendChild(document.createComment(" field:text "));
-    if (heading) textCell.appendChild(heading);
-    cells.push([textCell]);
-    const block = WebImporter.Blocks.createBlock(document, { name: "hero-banner", cells });
+    if (image) {
+      const imageCell = document.createDocumentFragment();
+      imageCell.appendChild(document.createComment(" field:image "));
+      imageCell.appendChild(image.cloneNode(true));
+      cells.push([imageCell]);
+    } else {
+      cells.push([""]);
+    }
+    if (textContent.length) {
+      const textCell = document.createDocumentFragment();
+      textCell.appendChild(document.createComment(" field:text "));
+      textContent.forEach((node) => textCell.appendChild(node));
+      cells.push([textCell]);
+    } else {
+      cells.push([""]);
+    }
+    const block = WebImporter.Blocks.createBlock(document, { name: "hero-article", cells });
     element.replaceWith(block);
   }
 
@@ -221,45 +240,44 @@ var CustomImportScript = (() => {
       WebImporter.DOMUtils.remove(element, [
         "#onetrust-consent-sdk",
         "#onetrust-banner-sdk",
-        '[id*="CookieConsent"]',
-        '[class*="cookie-consent"]',
-        ".campaignName",
-        // empty campaign marker (top of main)
-        ".relatedCountries",
-        // region/language selector list (top of main)
-        ".share-component",
-        // share/title shell (contains h1#primarytitle + share links)
-        ".anchor-nav-component",
-        // page-internal sticky anchor nav (live markup)
+        ".ot-sdk-container",
+        ".cookie-banner",
+        '[class*="cookie"]',
         ".floating-button-component",
-        // floating Print/PDF button (bottom)
-        ".social-share"
+        ".share-component",
+        ".anchor-nav-component",
+        'img[src*="rlcdn.com"]',
+        'iframe[src*="rlcdn.com"]'
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
       WebImporter.DOMUtils.remove(element, [
         "header",
         "footer",
-        "nav.anchor-nav",
-        // page-internal anchor nav (pre-cleaned markup variant)
+        "nav",
+        ".relatedCountries",
+        ".campaignName",
+        ".share-component",
         ".anchor-nav-component",
-        "h1#primarytitle",
-        // title rendered by share/title shell
+        ".floating-button-component",
         "iframe",
-        "link",
         "noscript",
-        'img[src*="rlcdn.com"]',
-        // RLCDN tracking pixel
-        'img[src*="/pixel"]',
-        // generic tracking pixels
-        'img[width="1"][height="1"]'
+        "link",
+        "script",
+        "style",
+        "source"
       ]);
+      element.querySelectorAll("*").forEach((el) => {
+        el.removeAttribute("onclick");
+        el.removeAttribute("data-track");
+        el.removeAttribute("data-tracking");
+      });
     }
   }
 
   // tools/importer/import-about-us.js
   var parsers = {
-    "hero-banner": parse,
+    "hero-article": parse,
     "columns-media": parse2,
     "quote-portrait": parse3,
     "carousel-awards": parse4,
@@ -276,7 +294,7 @@ var CustomImportScript = (() => {
     ],
     blocks: [
       {
-        name: "hero-banner",
+        name: "hero-article",
         instances: [".hero-component"]
       },
       {

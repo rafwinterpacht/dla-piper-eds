@@ -70,6 +70,35 @@
           "instances": [".tertiary-content-component"]
         }
       ]
+    },
+    {
+      "name": "about-us",
+      "urls": [
+        "https://www.dlapiper.com/en-us/about-us"
+      ],
+      "description": "DLA Piper About Us page - firm overview, mission, values, leadership, awards, and key information sections",
+      "blocks": [
+        {
+          "name": "hero-article",
+          "instances": [".hero-component"]
+        },
+        {
+          "name": "columns-media",
+          "instances": [".image-text-component:has(video)"]
+        },
+        {
+          "name": "quote-portrait",
+          "instances": [".image-text-component:has(.text-box.blue)"]
+        },
+        {
+          "name": "carousel-awards",
+          "instances": [".multimedia-highlight-component"]
+        },
+        {
+          "name": "cards-people",
+          "instances": [".contact-list"]
+        }
+      ]
     }
   ]
 }

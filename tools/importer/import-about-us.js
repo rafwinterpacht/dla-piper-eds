@@ -2,7 +2,11 @@
 /* global WebImporter */
 
 // PARSER IMPORTS
-import heroBannerParser from './parsers/hero-banner.js';
+// about-us hero is `.hero-component` (img.hero-img + h1.title) — same structure as
+// the insights-publication hero-article block, NOT the homepage hero-banner. Use
+// hero-article so the hero content is actually extracted (hero-banner expects the
+// homepage `.hero-card-container` markup and would emit an empty block here).
+import heroArticleParser from './parsers/hero-article.js';
 import columnsMediaParser from './parsers/columns-media.js';
 import quotePortraitParser from './parsers/quote-portrait.js';
 import carouselAwardsParser from './parsers/carousel-awards.js';
@@ -13,7 +17,7 @@ import dlapiperCleanupTransformer from './transformers/dlapiper-cleanup.js';
 
 // PARSER REGISTRY
 const parsers = {
-  'hero-banner': heroBannerParser,
+  'hero-article': heroArticleParser,
   'columns-media': columnsMediaParser,
   'quote-portrait': quotePortraitParser,
   'carousel-awards': carouselAwardsParser,
@@ -34,7 +38,7 @@ const PAGE_TEMPLATE = {
   ],
   blocks: [
     {
-      name: 'hero-banner',
+      name: 'hero-article',
       instances: ['.hero-component'],
     },
     {
