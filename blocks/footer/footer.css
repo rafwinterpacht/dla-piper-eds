@@ -1,17 +1,17 @@
-/* DLA Piper footer — white background, navy text, olive link hover. */
+/* DLA Piper footer — dark navy background, white text, olive link hover. */
 
 :root {
   --dlp-footer-navy: rgb(0 34 64);
   --dlp-footer-olive: rgb(115 118 39);
-  --dlp-footer-border: rgb(0 34 64 / 12%);
+  --dlp-footer-olive-light: rgb(170 173 110);
+  --dlp-footer-border: rgb(255 255 255 / 18%);
 }
 
 footer {
-  background-color: #fff;
-  color: var(--dlp-footer-navy);
+  background-color: var(--dlp-footer-navy);
+  color: #fff;
   font-family: "Noto Sans", Arial, Helvetica, sans-serif;
   font-size: 15px;
-  border-top: 1px solid var(--dlp-footer-border);
 }
 
 footer .footer-content {
@@ -30,12 +30,12 @@ footer .footer-content ul {
 }
 
 footer .footer-content a {
-  color: var(--dlp-footer-navy);
+  color: #fff;
   text-decoration: none;
 }
 
 footer .footer-content a:hover {
-  color: var(--dlp-footer-olive);
+  color: var(--dlp-footer-olive-light);
   text-decoration: underline;
 }
 
@@ -82,6 +82,9 @@ footer .footer-social img {
   width: 24px;
   height: 24px;
   display: block;
+
+  /* Social SVGs are navy fill; render white on the navy footer. */
+  filter: brightness(0) invert(1);
 }
 
 footer .footer-social a:hover {
@@ -122,7 +125,7 @@ footer .footer-legal-links ul {
 footer .footer-legal-text {
   font-size: 13px;
   line-height: 1.6;
-  color: rgb(0 34 64 / 80%);
+  color: rgb(255 255 255 / 75%);
   display: flex;
   flex-direction: column;
   gap: 12px;
