@@ -2,7 +2,7 @@
   "status": "success",
   "url": "https://www.dlapiper.com/en-us/about-us",
   "path": "en-us/about-us",
-  "timestamp": "2026-06-14T01:53:08.325Z",
+  "timestamp": "2026-06-14T02:14:29.931Z",
   "title": "About Us | Global Law Firm | DLA Piper",
   "template": "about-us",
   "blocks": [
@@ -14,6 +14,7 @@
     "cards-people",
     "cards-people",
     "cards-people",
-    "cards-people"
+    "cards-people",
+    "columns-cta"
   ]
 }

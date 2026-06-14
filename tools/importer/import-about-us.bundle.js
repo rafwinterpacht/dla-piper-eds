@@ -233,6 +233,25 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
+  // tools/importer/parsers/columns-cta.js
+  function parse6(element, { document }) {
+    let anchors = Array.from(element.querySelectorAll(".cta-container a.cta-with-arrow"));
+    if (anchors.length === 0) {
+      anchors = Array.from(element.querySelectorAll("a.cta-with-arrow, .cta-container a, a[href]"));
+    }
+    const columnCells = anchors.map((anchor) => {
+      const href = anchor.getAttribute("href") || "";
+      const text = anchor.textContent.replace(/\s+/g, " ").trim();
+      const a = document.createElement("a");
+      a.setAttribute("href", href);
+      a.textContent = text;
+      return a;
+    });
+    const cells = [columnCells];
+    const block = WebImporter.Blocks.createBlock(document, { name: "columns-cta", cells });
+    element.replaceWith(block);
+  }
+
   // tools/importer/transformers/dlapiper-cleanup.js
   var TransformHook = { beforeTransform: "beforeTransform", afterTransform: "afterTransform" };
   function transform(hookName, element, payload) {
@@ -281,7 +300,8 @@ var CustomImportScript = (() => {
     "columns-media": parse2,
     "quote-portrait": parse3,
     "carousel-awards": parse4,
-    "cards-people": parse5
+    "cards-people": parse5,
+    "columns-cta": parse6
   };
   var transformers = [
     transform
@@ -312,16 +332,10 @@ var CustomImportScript = (() => {
       {
         name: "cards-people",
         instances: [".contact-list"]
-      }
-    ],
-    sections: [
+      },
       {
-        id: "closing-cta",
-        name: "Closing CTA band",
-        selector: ".feature-cta-component",
-        style: "dark",
-        blocks: [],
-        defaultContent: [".feature-cta-component .cta-with-arrow"]
+        name: "columns-cta",
+        instances: [".feature-cta-component"]
       }
     ]
   };

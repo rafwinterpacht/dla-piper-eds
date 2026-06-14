@@ -11,6 +11,12 @@ import columnsMediaParser from './parsers/columns-media.js';
 import quotePortraitParser from './parsers/quote-portrait.js';
 import carouselAwardsParser from './parsers/carousel-awards.js';
 import cardsPeopleParser from './parsers/cards-people.js';
+// The closing CTA band (.feature-cta-component) is the same component as the
+// homepage's two CTAs. Parse it as the columns-cta block (which flattens the
+// source's <a><h2>…</h2></a> into clean plain links) instead of leaving it as
+// default content — a heading wrapping a link does not round-trip through md2jcr
+// and leaked as literal "<a href=…>Find a lawyer</a>" text on the page.
+import columnsCtaParser from './parsers/columns-cta.js';
 
 // TRANSFORMER IMPORTS
 import dlapiperCleanupTransformer from './transformers/dlapiper-cleanup.js';
@@ -22,6 +28,7 @@ const parsers = {
   'quote-portrait': quotePortraitParser,
   'carousel-awards': carouselAwardsParser,
   'cards-people': cardsPeopleParser,
+  'columns-cta': columnsCtaParser,
 };
 
 // TRANSFORMER REGISTRY
@@ -57,15 +64,9 @@ const PAGE_TEMPLATE = {
       name: 'cards-people',
       instances: ['.contact-list'],
     },
-  ],
-  sections: [
     {
-      id: 'closing-cta',
-      name: 'Closing CTA band',
-      selector: '.feature-cta-component',
-      style: 'dark',
-      blocks: [],
-      defaultContent: ['.feature-cta-component .cta-with-arrow'],
+      name: 'columns-cta',
+      instances: ['.feature-cta-component'],
     },
   ],
 };
