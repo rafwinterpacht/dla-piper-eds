@@ -53,6 +53,23 @@
           "section": "accent-olive"
         }
       ]
+    },
+    {
+      "name": "insights-publication",
+      "urls": [
+        "https://www.dlapiper.com/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges"
+      ],
+      "description": "Insights/publication article page with article header (title, date, authors), rich-text body, and related content",
+      "blocks": [
+        {
+          "name": "hero-article",
+          "instances": [".hero-component"]
+        },
+        {
+          "name": "cards-insights",
+          "instances": [".tertiary-content-component"]
+        }
+      ]
     }
   ]
 }

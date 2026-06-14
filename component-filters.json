@@ -40,6 +40,12 @@
     ]
   },
   {
+    "id": "cards-people",
+    "components": [
+      "card"
+    ]
+  },
+  {
     "id": "cards-promo",
     "components": [
       "card-promo"
@@ -80,6 +86,21 @@
   },
   {
     "id": "columns-cta",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "columns-media",
     "components": [
       "column"
     ]

@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-article",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-06-13T21:50:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges",
+    "originPage": "insights publication article - article header",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "article-hero",
+    "imagePattern": "fullbleed-background"
+  },
+  "contentPattern": {
+    "structure": "full-bleed editorial background image + publication-date eyebrow + article title on a light title plate (no CTA, no portrait)",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "insights / publication / news article headers",
+      "editorial article heroes pairing a background photo with a date eyebrow and title",
+      "any article-header treatment with a title plate and no call-to-action button"
+    ],
+    "notSuitableFor": [
+      "marketing landing-page heroes with an overlaid title and CTA on a dark band (use hero-banner)",
+      "person / attorney profile headers with a portrait (use hero-profile)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-13T21:50:00.000Z"
+  }
+}

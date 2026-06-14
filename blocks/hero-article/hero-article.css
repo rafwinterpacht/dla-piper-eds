@@ -1,0 +1,78 @@
+/*
+ * hero-article - article-header hero for insights/publication pages.
+ * Derived from the vanilla hero block; class names renamed to the
+ * hero-article variant. A full-bleed editorial photo sits behind a
+ * publication-date eyebrow and the article title on a light title plate.
+ */
+.hero-article-container .hero-article-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-article {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 360px;
+  padding: 0;
+  background-color: #16243f; /* navy fallback behind image */
+  overflow: hidden;
+}
+
+/* Full-bleed background image */
+.hero-article .hero-article-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero-article .hero-article-image picture,
+.hero-article .hero-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Title plate: date eyebrow + headline on a light band over the photo */
+.hero-article .hero-article-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px 24px 28px;
+  background: rgb(244 244 244 / 95%); /* light grey title plate */
+  color: #16243f;
+}
+
+/* Publication-date eyebrow (first paragraph) */
+.hero-article .hero-article-content p {
+  margin: 0 0 8px;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4a5567;
+}
+
+.hero-article .hero-article-content h1 {
+  margin: 0;
+  max-width: 1100px;
+  color: #16243f;
+  font-size: 2.25rem;
+  line-height: 1.15;
+}
+
+@media (width >= 900px) {
+  .hero-article {
+    min-height: 480px;
+  }
+
+  .hero-article .hero-article-content {
+    padding: 32px 64px 40px;
+  }
+
+  .hero-article .hero-article-content h1 {
+    font-size: 3rem;
+  }
+}
