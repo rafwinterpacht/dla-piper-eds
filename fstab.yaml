@@ -1,3 +1,3 @@
 mountpoints:
-  /news: https://github.com/rafwinterpacht/dla-piper-eds/tree/main/news
+  /en-us/news: https://content.da.live/rafwinterpacht/dla-piper-eds/en-us/news
   /: https://author-p7752-e729659.adobeaemcloud.com/bin/franklin.delivery/rafwinterpacht/dla-piper-eds/main
