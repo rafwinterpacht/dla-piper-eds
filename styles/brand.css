@@ -1,7 +1,7 @@
 /* DLA Piper brand tokens — extracted from https://www.dlapiper.com/en-us/about-us */
 :root {
-  --heading-font-family: "Noto Serif", Georgia, serif;
-  --body-font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  --heading-font-family: "Noto Serif", georgia, serif;
+  --body-font-family: "Noto Sans", arial, helvetica, sans-serif;
   --background-color: rgb(255 255 255);
   --text-color: rgb(0 34 64);
   --link-color: rgb(115 118 39);
@@ -11,7 +11,6 @@
   --brand-navy: rgb(0 34 64);
   --brand-yellow: rgb(221 222 76);
   --brand-olive: rgb(115 118 39);
-
   --section-padding: 0px;
   --nav-height: 64px;
 

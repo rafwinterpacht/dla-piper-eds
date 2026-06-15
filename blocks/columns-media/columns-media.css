@@ -40,6 +40,7 @@
 }
 
 /* Text column */
+/* stylelint-disable-next-line no-descending-specificity */
 .columns-media > div > div p {
   margin: 0;
   font-family: var(--body-font-family);
@@ -84,7 +85,7 @@
      (left ~138px, right ~216px on a ~600px column); we use a smaller
      inset so the copy stays readable without overflowing. */
   .columns-media > div > div:not(.columns-media-img-col) {
-    padding: 38px 96px 38px 96px;
+    padding: 38px 96px;
   }
 
   /* Media sits centered in its half */

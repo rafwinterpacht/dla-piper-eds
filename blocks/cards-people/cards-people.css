@@ -1,4 +1,5 @@
 /* cards-people -- responsive grid of person cards (DLA Piper .contact-list) */
+
 /* Values extracted from source computed styles (1440px desktop). */
 
 .cards-people > ul {
@@ -7,8 +8,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 16px;
-  row-gap: 28px;
+  gap: 28px 16px;
 }
 
 /* Card -- minimal chrome, transparent, centered (source: a.contact-card) */

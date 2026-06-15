@@ -79,7 +79,6 @@
   margin-bottom: 24px;
   background-color: currentcolor;
   mask: var(--trophy-icon) center / contain no-repeat;
-  -webkit-mask: var(--trophy-icon) center / contain no-repeat;
 }
 
 .carousel-awards {
