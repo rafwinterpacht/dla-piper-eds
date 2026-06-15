@@ -23,6 +23,7 @@
     "suitableFor": [
       "insights / publication / news article headers",
       "editorial article heroes pairing a background photo with a date eyebrow and title",
+      "article headers with an optional subtitle line beneath the title (rich text in the content row)",
       "any article-header treatment with a title plate and no call-to-action button"
     ],
     "notSuitableFor": [
@@ -31,8 +32,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-13T21:50:00.000Z"
+    "pagesUsing": [
+      "/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges",
+      "/en-us/news/2025/12/dla-piper-wins-strategic-direction-honor-at-financial-times-innovative-lawyers-awards"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-15T14:15:00.000Z"
   }
 }
