@@ -240,6 +240,22 @@ main img {
 }
 
 /* sections */
+
+/* Offset content below the fixed header. The header is position:fixed and is two
+   rows tall on desktop (logo row + primary-nav row), so static 64px is not enough
+   and the first content (breadcrumb/hero) tucks under the nav. header.js measures
+   the rendered header and exposes it as --dlp-header-h; use it with a fallback that
+   covers the desktop two-row height. */
+main {
+  padding-top: var(--dlp-header-h, var(--nav-height));
+}
+
+@media (width >= 900px) {
+  main {
+    padding-top: var(--dlp-header-h, 108px);
+  }
+}
+
 main > .section {
   margin: 40px 0;
 }
