@@ -1,2 +1,3 @@
 mountpoints:
+  /news: https://admin.da.live/source/rafwinterpacht/dla-piper-eds/news
   /: https://author-p7752-e729659.adobeaemcloud.com/bin/franklin.delivery/rafwinterpacht/dla-piper-eds/main
