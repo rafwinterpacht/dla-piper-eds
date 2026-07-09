@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://www.dlapiper.com/en-us/people/s/severs-charles",
+  "path": "en-us/people/s/severs-charles",
+  "timestamp": "2026-07-09T12:23:04.841Z",
+  "title": "Charles Severs | Global Co-CEO | DLA Piper",
+  "template": "person-profile",
+  "blocks": [
+    "hero-profile",
+    "cards-insights",
+    "columns-contact"
+  ]
+}

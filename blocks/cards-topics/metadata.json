@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-topics",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory",
+    "originPage": "capability / practice-area page - Related capabilities band",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "topic-pills",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "wrap of pill/tag links (one link per item)",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "'Related capabilities' / 'Related topics' pill link bands",
+      "tag / category link clusters on a dark accent band",
+      "any wrap of small link pills that jump to related pages"
+    ],
+    "notSuitableFor": [
+      "card rows with images or descriptions (use cards-insights)",
+      "text promo cards with eyebrow + headline + link (use cards-promo)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-09T00:00:00.000Z"
+  }
+}

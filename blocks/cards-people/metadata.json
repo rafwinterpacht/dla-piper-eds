@@ -30,8 +30,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/en-us/about-us"],
-    "reuseCount": 2,
-    "lastUsed": "2026-06-12T19:48:00.000Z"
+    "pagesUsing": [
+      "/en-us/about-us",
+      "/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"
+    ],
+    "reuseCount": 3,
+    "lastUsed": "2026-07-09T12:43:40Z"
   }
 }

@@ -1,0 +1,38 @@
+/* cards-topics — pill/tag link list ("Related capabilities") on a dark navy band. */
+
+.cards-topics {
+  padding: 48px 0;
+}
+
+.cards-topics .cards-topics-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cards-topics .cards-topics-item {
+  margin: 0;
+  padding: 0;
+}
+
+.cards-topics .cards-topics-pill,
+.cards-topics .cards-topics-pill a {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cards-topics .cards-topics-pill a:hover,
+.cards-topics .cards-topics-pill:hover a {
+  background-color: rgb(255 255 255 / 15%);
+  border-color: #fff;
+}

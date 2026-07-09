@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-deals",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory",
+    "originPage": "capability / practice-area page - Deals section",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "deal-tiles",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "grid of deal tiles: type tag + company + deal type + amount + date",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "representative-deals / experience grids on capability pages",
+      "text-only tile grids with a category tag + a few short fields (company, type, amount, date)",
+      "'Recent matters' / 'Notable transactions' listings"
+    ],
+    "notSuitableFor": [
+      "card rows with images (use cards-insights)",
+      "pill/tag link clusters (use cards-topics)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-09T00:00:00.000Z"
+  }
+}

@@ -99,6 +99,54 @@
           "instances": [".contact-list"]
         }
       ]
+    },
+    {
+      "name": "capability",
+      "urls": [
+        "https://www.dlapiper.com/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"
+      ],
+      "description": "Capability / practice-area page with sticky anchor nav, image+text intro panels, pull quote, resource/event/insight card rows, related-capability pills, deal tiles, awards carousel, contacts card, and a meet-the-team CTA",
+      "blocks": [
+        {
+          "name": "anchornav",
+          "instances": [".anchor-nav-component"]
+        },
+        {
+          "name": "columns-media",
+          "instances": [".image-text-component"]
+        },
+        {
+          "name": "quote-profile",
+          "instances": [".article-quote-component"]
+        },
+        {
+          "name": "cards-insights",
+          "instances": [".gallery-container", ".tertiary-content-component"]
+        },
+        {
+          "name": "cards-topics",
+          "instances": [".related-capability-component"],
+          "section": "accent-navy"
+        },
+        {
+          "name": "cards-deals",
+          "instances": [".deal-row"]
+        },
+        {
+          "name": "carousel-awards",
+          "instances": [".multimedia-highlight-component"]
+        },
+        {
+          "name": "cards-people",
+          "instances": [".dla-contacts .contact-list"],
+          "section": "grey"
+        },
+        {
+          "name": "columns-cta",
+          "instances": [".feature-cta-component"],
+          "section": "accent-olive"
+        }
+      ]
     }
   ]
 }

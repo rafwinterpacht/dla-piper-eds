@@ -161,6 +161,41 @@
     ]
   },
   {
+    "id": "anchor-link",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "anchor",
+        "label": "Anchor Target (e.g. #resources)"
+      }
+    ]
+  },
+  {
+    "id": "deal",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Deal Type Tag"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "value": "",
+        "label": "Deal Details (company, type, amount, date)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card-insights",
     "fields": [
       {
@@ -206,6 +241,25 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "topic",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "value": "",
+        "label": "Link Text",
         "valueType": "string"
       }
     ]

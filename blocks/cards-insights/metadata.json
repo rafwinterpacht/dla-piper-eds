@@ -31,8 +31,13 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/en-us/people/r/ryan-frank-w", "/en-us", "/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges"],
-    "reuseCount": 3,
-    "lastUsed": "2026-06-13T21:50:00.000Z"
+    "pagesUsing": [
+      "/en-us/people/r/ryan-frank-w",
+      "/en-us",
+      "/en-us/insights/publications/2026/05/doj-and-cftc-criminal-and-civil-insider-trading-charges",
+      "/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"
+    ],
+    "reuseCount": 4,
+    "lastUsed": "2026-07-09T12:43:40Z"
   }
 }

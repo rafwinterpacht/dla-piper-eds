@@ -1,0 +1,50 @@
+/* anchornav — sticky in-page jump navigation (capability page section nav). */
+
+.anchornav-wrapper,
+.anchornav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--accent-olive, #a5a51e);
+}
+
+.anchornav .anchornav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  align-items: center;
+  max-width: var(--content-width, 1200px);
+  margin: 0 auto;
+  padding: 14px 24px;
+}
+
+.anchornav .anchornav-item {
+  margin: 0;
+}
+
+.anchornav .anchornav-link {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.anchornav .anchornav-link:hover {
+  opacity: 0.85;
+}
+
+.anchornav .anchornav-link.active {
+  border-bottom-color: #fff;
+}
+
+@media (width <= 900px) {
+  .anchornav .anchornav-list {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+}

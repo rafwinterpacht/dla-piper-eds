@@ -34,6 +34,18 @@
     ]
   },
   {
+    "id": "anchornav",
+    "components": [
+      "anchor-link"
+    ]
+  },
+  {
+    "id": "cards-deals",
+    "components": [
+      "deal"
+    ]
+  },
+  {
     "id": "cards-insights",
     "components": [
       "card-insights"
@@ -49,6 +61,12 @@
     "id": "cards-promo",
     "components": [
       "card-promo"
+    ]
+  },
+  {
+    "id": "cards-topics",
+    "components": [
+      "topic"
     ]
   },
   {

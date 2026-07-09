@@ -1,0 +1,22 @@
+{
+  "status": "success",
+  "url": "https://www.dlapiper.com/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory",
+  "path": "en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory",
+  "timestamp": "2026-07-09T12:57:35.632Z",
+  "title": "Capital Markets and Public Company Advisory | DLA Piper",
+  "template": "capability",
+  "blocks": [
+    "anchornav",
+    "columns-media",
+    "columns-media",
+    "quote-profile",
+    "cards-insights",
+    "cards-insights",
+    "cards-insights",
+    "cards-topics",
+    "cards-deals",
+    "carousel-awards",
+    "cards-people",
+    "columns-cta"
+  ]
+}

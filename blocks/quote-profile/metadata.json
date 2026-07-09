@@ -30,8 +30,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/en-us/people/r/ryan-frank-w"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-13T15:46:00.000Z"
+    "pagesUsing": [
+      "/en-us/people/r/ryan-frank-w",
+      "/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-09T12:43:40Z"
   }
 }

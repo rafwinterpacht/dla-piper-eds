@@ -1,0 +1,38 @@
+{
+  "variantName": "anchornav",
+  "baseBlock": "anchornav",
+  "version": "1.0.0",
+  "created": "2026-07-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.dlapiper.com/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory",
+    "originPage": "capability / practice-area page - sticky section navigation",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "compact",
+    "purpose": "in-page-nav",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "horizontal list of label + in-page anchor links; sticky on scroll",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "sticky in-page jump navigation on long capability / landing pages",
+      "section anchor bars that highlight the section currently in view",
+      "any page needing a horizontal 'jump to section' nav on an accent band"
+    ],
+    "notSuitableFor": [
+      "site-level primary navigation (use header)",
+      "hero headers with an image or CTA (use a hero variant)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-09T00:00:00.000Z"
+  }
+}

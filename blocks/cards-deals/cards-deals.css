@@ -1,0 +1,44 @@
+/* cards-deals — grid of representative-deal tiles (text-only). */
+
+.cards-deals {
+  padding: 24px 0 48px;
+}
+
+.cards-deals .cards-deals-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 32px 24px;
+}
+
+.cards-deals .cards-deals-item {
+  margin: 0;
+  padding: 0 16px;
+  border-left: 2px solid var(--accent-olive, #a5a51e);
+}
+
+.cards-deals .cards-deals-tag {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-olive, #7a7a15);
+  margin-bottom: 8px;
+}
+
+.cards-deals .cards-deals-body {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.cards-deals .cards-deals-body p {
+  margin: 0 0 4px;
+}
+
+.cards-deals .cards-deals-body strong {
+  display: block;
+  font-size: 17px;
+}

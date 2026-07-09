@@ -25,7 +25,11 @@ export default function transform(hookName, element, payload) {
   if (hookName === TransformHook.beforeTransform) {
     // Overlays / widgets / tracking that can block or pollute block parsing.
     // Cookie consent banners (live DOM), floating contact button, social share
-    // widgets, anchor/sticky in-page nav, and the LiveRamp (rlcdn) tracking pixel.
+    // widgets, and the LiveRamp (rlcdn) tracking pixel.
+    // NOTE: `.anchor-nav-component` is intentionally NOT removed — on capability
+    // pages it is an authorable block (parsed into the `anchornav` block), so it
+    // must survive into parsing. It carries no meaningful content on other
+    // templates, so leaving it in place is harmless where no anchornav parser runs.
     WebImporter.DOMUtils.remove(element, [
       '#onetrust-consent-sdk',
       '#onetrust-banner-sdk',
@@ -34,7 +38,6 @@ export default function transform(hookName, element, payload) {
       '[class*="cookie"]',
       '.floating-button-component',
       '.share-component',
-      '.anchor-nav-component',
       'img[src*="rlcdn.com"]',
       'iframe[src*="rlcdn.com"]',
     ]);
@@ -44,6 +47,9 @@ export default function transform(hookName, element, payload) {
     // Non-authorable site chrome. Header/nav/footer are rebuilt by EDS blocks.
     // `.relatedCountries` (top of main) and `.campaignName` are metadata-driven
     // chrome carried in page metadata, not authorable page content.
+    // NOTE: `.anchor-nav-component` is intentionally NOT removed here — on
+    // capability pages the anchornav parser has already replaced it with a block
+    // table by this point; on other templates it carries no authorable content.
     WebImporter.DOMUtils.remove(element, [
       'header',
       'footer',
@@ -51,7 +57,6 @@ export default function transform(hookName, element, payload) {
       '.relatedCountries',
       '.campaignName',
       '.share-component',
-      '.anchor-nav-component',
       '.floating-button-component',
       'iframe',
       'noscript',

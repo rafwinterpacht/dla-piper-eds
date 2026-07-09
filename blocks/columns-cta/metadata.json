@@ -31,8 +31,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/en-us"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-13T19:10:00.000Z"
+    "pagesUsing": [
+      "/en-us",
+      "/en-us/capabilities/practice-area/corporate/capital-markets-and-public-company-advisory"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-09T12:43:40Z"
   }
 }
