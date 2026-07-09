@@ -24,7 +24,7 @@ import {
 import { resolve, dirname, join } from 'path';
 import { pathToFileURL } from 'url';
 
-const SKILL_SCRIPTS_DIR = '/home/node/.excat-marketplace/excat/skills/excat-content-import/scripts';
+const SKILL_SCRIPTS_DIR = '/home/node/.excat-marketplaces/excat-marketplace/excat/skills/excat-content-import/scripts';
 
 // Playwright + processPlainHtml live in the skill's node_modules (project has no playwright dep).
 const playwright = await import(pathToFileURL(join(SKILL_SCRIPTS_DIR, 'node_modules/playwright/index.js')).href);

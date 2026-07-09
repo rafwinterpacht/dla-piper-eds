@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://www.dlapiper.com/en-us/people/b/brown-loren-h",
+  "path": "en-us/people/b/brown-loren-h",
+  "timestamp": "2026-07-08T21:13:42.611Z",
+  "title": "Loren Brown | DLA Piper",
+  "template": "person-profile",
+  "blocks": [
+    "hero-profile",
+    "cards-insights",
+    "columns-contact"
+  ]
+}
